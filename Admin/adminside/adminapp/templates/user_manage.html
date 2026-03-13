@@ -15,8 +15,60 @@
     <div class="container-fluid">
         <div class="row">
             {% include "partials/navbar.html" %}
-        <div class="col-md-10">
-
+        <div class="col-md-10 p-4">
+            <div class='d-flex align-items-center mb-3 '>
+                 <h1>User Management</h1>
+                <button class="btn btn-secondary ml-auto">Admin</button>
+            </div >
+        <hr>
+        <div class="d-flex align-items-center mb-4">
+            <i class="fa-solid fa-magnifying-glass mr-2 "></i>
+            <input class="form-control border-light" type="text" placeholder="Search users...">
+        </div>
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered table-hover ">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#101</td>
+                        <td>John</td>
+                        <td>john.smith@gmail.com</td>
+                        <td><a href="#">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>#102</td>
+                        <td>Sarah</td>
+                        <td>sarah.george@gmail.com</td>
+                        <td><a href="#">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>#103</td>
+                        <td>david</td>
+                        <td>david@gmail.com</td>
+                        <td><a href="#">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>#104</td>
+                        <td>Miller</td>
+                        <td>miller@gmail.com</td>
+                        <td><a href="#">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>#105</td>
+                        <td>marco</td>
+                        <td>marco.britto@gmail.com</td>
+                        <td><a href="#">View Profile</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 </html>
