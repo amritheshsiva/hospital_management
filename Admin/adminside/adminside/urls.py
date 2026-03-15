@@ -5,8 +5,9 @@ urlpatterns = [
     path('',views.login),
     path('home',views.home),
     path('doctors',views.doc),
-    path('appointment',views.appointment),
+    path('appointments',views.appointment),
     path('users',views.user),
     path('profile',views.userprofile),
-    path('report',views.report)
+    path('report',views.report),
+    path('add',views.add)
 ]
