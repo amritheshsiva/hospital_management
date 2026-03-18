@@ -3,18 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Doctor Profile</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
             {% include "partials/navbar.html" %}
-        <div class="col-md-10">
-
+            <div class="col-md-10 p-4">
+                <div class='d-flex align-items-center mb-4'>
+                    <h1>Doctor Profile</D></h1>
+                    <button class="btn btn-secondary ml-auto"><i class="fas fa-user-shield mr-2"></i>Admin</button>
+                </div> 
+                <div class="card p-4">
+                    <div class="row">
+                        <div class="col-md-2">
+                        <img src="https://imgs.search.brave.com/teH14n99CiwrWzL302wEJEfTd_yA0S5h1zOnNPoyBzU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wbHVz/LnVuc3BsYXNoLmNv/bS9wcmVtaXVtX3Zl/Y3Rvci0xNzI4NTcy/MDkwMjc2LTFmY2Yy/N2NlMzk5ZD9mbT1q/cGcmcT02MCZ3PTMw/MDAmaXhsaWI9cmIt/NC4xLjA" 
+                        class="rounded-circle" width="180" height="180">
+                        </div>
+                        <div class="col-md-3 mt-5">
+                        <h1 class="mt-3 text-center mb-4">Dr. Arjun</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <p><strong>Specialization:</strong> Cardiology</p>
+                            <p><strong>Phone:</strong> 9837644670</p>
+                            <p><strong>Email:</strong> arjun.shankar@gmail.com</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Qualification:</strong> MBBS, MD Cardiology</p>
+                            <p><strong>Experience:</strong> 8+ years experience in Cardiology</p>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="" class="btn btn-primary">
+                            <i class="fas fa-arrow-left mr-2"></i>Back
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+            
+</body>
 </html>
