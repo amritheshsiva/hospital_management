@@ -17,4 +17,6 @@ def add(request):
     return render(request,'doctor_add.html')
 def edit(request):
     return render(request,'doctor_edit.html')
+def docprofile(request):
+    return render(request,'doctor_profile.html')
 

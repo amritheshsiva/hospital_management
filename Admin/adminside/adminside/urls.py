@@ -7,8 +7,9 @@ urlpatterns = [
     path('doctors',views.doc),
     path('appointments',views.appointment),
     path('users',views.user),
-    path('profile',views.userprofile),
+    path('userprofile',views.userprofile),
     path('report',views.report),
     path('add',views.add),
-    path('edit',views.edit)
+    path('docedit',views.edit),
+    path('docprofile',views.docprofile)
 ]
