@@ -15,5 +15,6 @@ def report(request):
     return render(request,'reports.html')
 def add(request):
     return render(request,'doctor_add.html')
-
+def edit(request):
+    return render(request,'doctor_edit.html')
 
