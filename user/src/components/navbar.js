@@ -2,11 +2,13 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-  <nav className="navbar navbar-expand-lg"
+  <nav className="navbar navbar-expand-lg mt-3 mx-3 rounded shadow-sm "
   style={{
         backgroundColor: "#f8fbff",
-        padding: "12px 40px",
-        borderBottom: "1px solid #e0e0e0"
+        // padding: "12px 40px",
+        padding: '0px 40px',
+        borderBottom: "1px solid #e0e0e0",
+        height: "50px"
       }}>
 
       {/* Logo */}
@@ -63,7 +65,7 @@ function Navbar() {
         </NavLink>
 
         <NavLink
-          to="/signup"
+          to="/register"
           style={{
             backgroundColor: "#2b7cff",
             color: "#fff",
