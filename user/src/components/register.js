@@ -79,7 +79,7 @@ function Register() {
                                 <span className='input-group-text border-0 bg-light'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="20" height="20" fill='grey'><path d="M224.2 89C216.3 70.1 195.7 60.1 176.1 65.4L170.6 66.9C106 84.5 50.8 147.1 66.9 223.3C104 398.3 241.7 536 416.7 573.1C493 589.3 555.5 534 573.1 469.4L574.6 463.9C580 444.2 569.9 423.6 551.1 415.8L453.8 375.3C437.3 368.4 418.2 373.2 406.8 387.1L368.2 434.3C297.9 399.4 241.3 341 208.8 269.3L253 233.3C266.9 222 271.6 202.9 264.8 186.3L224.2 89z"/></svg></span>
                             <input type="number" className="form-control  mb-3" placeholder="Phone Number"/>
                             </div>
-                            {/* Passerd */}
+                            {/* Passwrd */}
                             <div className='input-group'>
                                 <span className='input-group-text border-0 bg-light'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="20" height="20" fill='grey'><path d="M320 96C284.7 96 256 124.7 256 160L256 224L448 224C483.3 224 512 252.7 512 288L512 512C512 547.3 483.3 576 448 576L192 576C156.7 576 128 547.3 128 512L128 288C128 252.7 156.7 224 192 224L192 160C192 89.3 249.3 32 320 32C383.5 32 436.1 78.1 446.2 138.7C449.1 156.1 437.4 172.6 419.9 175.6C402.4 178.6 386 166.8 383 149.3C378 119.1 351.7 96 320 96zM360 424C373.3 424 384 413.3 384 400C384 386.7 373.3 376 360 376L280 376C266.7 376 256 386.7 256 400C256 413.3 266.7 424 280 424L360 424z"/></svg></span>
                             <input type="password" className="form-control mb-3" placeholder="Password"/>
