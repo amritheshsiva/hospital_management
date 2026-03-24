@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar'
 function DocList() {
+    const navigate = useNavigate();
     return (
     <div>
         <Navbar/>
@@ -59,7 +61,7 @@ function DocList() {
                                 </div>
                             </div>
                             <div>
-                                <button className='btn btn-danger px-3 mr-2 rounded-pill'>Book an appointment</button>
+                                <button className='btn btn-danger px-3 mr-2 rounded-pill' onClick={() => navigate('/book')}>Book an appointment</button>
                                 <button className='btn btn-primary px-4 rounded-pill'>View Profile</button>
                             </div>
                         </div>
