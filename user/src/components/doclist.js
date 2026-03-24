@@ -52,7 +52,7 @@ function DocList() {
                                     <h5 className='mb-1 fw-semibold'>Dr. Arjun</h5>
                                     <p className='mb-1 text-muted small'>MBBS, MD (Cardiology)</p>
                                     <div className='d-flex flex-wrap gap-2'>
-                                        <span className='badge bg-light text-danger'>❤️ Cardiology</span>
+                                        <span className='badge bg-light text-danger'>Cardiology</span>
                                         <span className='badge bg-light text-success'>8+ years experience</span>
                                     </div>
                                     <span className='text-muted small'>🕒 10:00 AM - 1.00 PM | 🕒 4:00 PM - 7:00 PM</span>      
@@ -75,7 +75,7 @@ function DocList() {
                                     <h5 className='mb-1 fw-semibold'>Dr. Ansila</h5>
                                     <p className='mb-1 text-muted small'>MBBS, MD (General Medicine)</p>
                                     <div className='d-flex flex-wrap gap-2'>
-                                        <span className='badge bg-light text-danger'>🧡 General Medicine</span>
+                                        <span className='badge bg-light text-danger'>General Medicine</span>
                                         <span className='badge bg-light text-success'>6 years experience</span>
                                     </div>
                                     <span className='text-muted small'>🕘 11:00 AM - 2:00 PM | 🕓 5:00 PM - 8:00 PM</span>      
@@ -97,7 +97,7 @@ function DocList() {
                                     <h5 className='mb-1 fw-semibold'>Dr. Rahul</h5>
                                     <p className='mb-1 text-muted small'>MBBS, MD (Pediatrics)</p>
                                     <div className='d-flex flex-wrap gap-2'>
-                                        <span className='badge bg-light text-danger'>💙 Pediatrics</span>
+                                        <span className='badge bg-light text-danger'>Pediatrics</span>
                                         <span className='badge bg-light text-success'>10 years experience</span>
                                     </div>
                                     <span className='text-muted small'>🕘 9:00 AM - 12:00 PM | 🕓 4:00 PM - 7:00 PM</span>      
@@ -119,7 +119,7 @@ function DocList() {
                                     <h5 className='mb-1 fw-semibold'>Dr. Riya</h5>
                                     <p className='mb-1 text-muted small'>MBBS, DM (Neurology)</p>
                                     <div className='d-flex flex-wrap gap-2'>
-                                        <span className='badge bg-light text-danger'>🩵 Neurology</span>
+                                        <span className='badge bg-light text-danger'>Neurology</span>
                                         <span className='badge bg-light text-success'>12 years experience</span>
                                     </div>
                                     <span className='text-muted small'>🕘 10:30 AM - 1:30 PM | 🕓 6:00 PM - 9:00 PM</span>      
