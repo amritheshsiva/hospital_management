@@ -62,7 +62,7 @@ function DocList() {
                             </div>
                             <div>
                                 <button className='btn btn-danger px-3 mr-2 rounded-pill' onClick={() => navigate('/book')}>Book an appointment</button>
-                                <button className='btn btn-primary px-4 rounded-pill'>View Profile</button>
+                                {/* <button className='btn btn-primary px-4 rounded-pill'>View Profile</button> */}
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@ function DocList() {
                             </div>
                             <div>
                                 <button className='btn btn-danger px-3 mr-2 rounded-pill'>Book an appointment</button>
-                                <button className='btn btn-primary px-4 rounded-pill'>View Profile</button>
+                                {/* <button className='btn btn-primary px-4 rounded-pill'>View Profile</button> */}
                             </div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@ function DocList() {
                             </div>
                             <div>
                                 <button className='btn btn-danger px-3 mr-2 rounded-pill'>Book an appointment</button>
-                                <button className='btn btn-primary px-4 rounded-pill'>View Profile</button>
+                                {/* <button className='btn btn-primary px-4 rounded-pill'>View Profile</button> */}
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ function DocList() {
                             </div>
                             <div>
                                 <button className='btn btn-danger px-3 mr-2 rounded-pill'>Book an appointment</button>
-                                <button className='btn btn-primary px-4 rounded-pill'>View Profile</button>
+                                {/* <button className='btn btn-primary px-4 rounded-pill'>View Profile</button> */}
                             </div>
                         </div>
                     </div>
