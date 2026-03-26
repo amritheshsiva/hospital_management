@@ -7,7 +7,7 @@ function Login() {
         <h5 className='ml-5 mt-4 p-2' style={{ fontWeight: "700", color: "#2b7cff" }}>MediCare
             <span style={{ color: "#ff7a00" }}>+</span>
         </h5>
-        <div className='container-fluid'>
+        <div className='container-fluid' style={{ minHeight: "100vh" }}>
             <div className='row'>
                 <div className='col-md-6'>
                     {/* <img src={reg} alt='regpage_pic' className='img-fluid rounded'style={{width:'700px', height:'550px' }}/> */}

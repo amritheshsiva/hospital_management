@@ -10,7 +10,7 @@ function App() {
     <div>
       <Navbar />
       {/* HERO SECTION */}
-      <div className="container py-4">
+      <div className="container py-4" style={{ minHeight: "61vh" }}>
         <div className="row align-items-center">
 
           <div className="col-md-6 col-12 mt-3 p-3">

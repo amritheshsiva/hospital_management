@@ -4,7 +4,8 @@ function Appointment() {
     return (
     <div>
         <Navbar/>
-        <div className='container-fluid'>
+        {/* <div className='container-fluid'> */}
+        <div className='container-fluid' style={{ minHeight: "100vh" }}>
             <h2 className='text-center mt-4'>My Appointments</h2>
             <div className="mt-3 d-flex justify-content-center">
                 <div className="d-flex rounded shadow-sm overflow-hidden w-100 mt-3"style={{ background:"#ffffff", maxWidth: "900px" }}>
@@ -66,50 +67,7 @@ function Appointment() {
                         </div>
                     </div>
                 </div>
-                {/* Doctor 3 */}
-                {/* <div className='col-md-12 mt-4 '>
-                    <div className='card shadow-sm border-0 p-3' style={{borderRadius:'12px'}}>
-                        <div className='d-flex align-items-center justify-content-between'>
-                            <div className='d-flex align-items-center'>
-                                <img src="https://imgs.search.brave.com/HL1iM8eX1ZJ0a7abH7FCDElbCbpXmY3-2mQbxAwzYMY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9mYWNl/bGVzcy1tYWxlLWRv/Y3Rvci1hdmF0YXIt/c3RldGhvc2NvcGUt/ZmxhdC1kZXNpZ24t/aWRlYWwtaGVhbHRo/Y2FyZS1tZWRpY2Fs/LWFwcHMtYW5vbnlt/b3VzLXByb2Zlc3Np/b25hbC1wcm9maWxl/cy0zODgzMzMyODIu/anBn" alt="doc"className='rounded-circle me-3 mr-2' style={{width:'70px', height:'70px', objectFit:'cover'}}/>
-                                <div>
-                                    <h5 className='mb-1 fw-semibold'>Dr. Rahul</h5>
-                                    <p className='mb-1 text-muted small'>MBBS, MD (Pediatrics)</p>
-                                    <div className='d-flex flex-wrap gap-2'>
-                                        <span className='badge bg-light text-danger'>Pediatrics</span>
-                                        <span className='badge bg-light text-success'>10 years experience</span>
-                                    </div>
-                                    <span className='text-muted small'>🕘 9:00 AM - 12:00 PM | 🕓 4:00 PM - 7:00 PM</span>      
-                                </div>
-                            </div>
-                            <div>
-                                <button className='btn btn-primary px-4 rounded-pill'>View Profile</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
-                {/* Doctor 4
-                <div className='col-md-12 mt-4'>
-                    <div className='card shadow-sm border-0 p-3' style={{borderRadius:'12px'}}>
-                        <div className='d-flex align-items-center justify-content-between'>
-                            <div className='d-flex align-items-center'>
-                                <img src="https://imgs.search.brave.com/pOoQb3Sl5EUnpCXmiEILVzrtcsUq0_dUEZIo-VnVy2c/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9mZW1h/bGUtZG9jdG9yLWZh/Y2VsZXNzLWF2YXRh/ci1yb3VuZC1pY29u/LWZhY2VsZXNzLWZl/bWFsZS1kb2N0b3It/YXZhdGFyLXN0ZXRo/b3Njb3BlLWZsYXQt/ZGVzaWduLWNpcmN1/bGFyLWZyYW1lLWlk/ZWFsLTM4ODM5MTQ2/Ni5qcGc" alt="doc"className='rounded-circle me-3 mr-2' style={{width:'70px', height:'70px', objectFit:'cover'}}/>
-                                <div>
-                                    <h5 className='mb-1 fw-semibold'>Dr. Riya</h5>
-                                    <p className='mb-1 text-muted small'>MBBS, DM (Neurology)</p>
-                                    <div className='d-flex flex-wrap gap-2'>
-                                        <span className='badge bg-light text-danger'>Neurology</span>
-                                        <span className='badge bg-light text-success'>12 years experience</span>
-                                    </div>
-                                    <span className='text-muted small'>🕘 10:30 AM - 1:30 PM | 🕓 6:00 PM - 9:00 PM</span>      
-                                </div>
-                            </div>
-                            <div>
-                                <button className='btn btn-primary px-4 rounded-pill'>View Profile</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+                
             </div>
         </div>
     </div>

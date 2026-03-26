@@ -6,7 +6,7 @@ function Appointment() {
     <div>
       <Navbar />
 
-      <div className="container mt-4">
+      <div className="container mt-4" style={{ minHeight: "100vh" }}>
         <h3 className="text-center mb-4 fw-bold">
           Book Appointment
         </h3>
