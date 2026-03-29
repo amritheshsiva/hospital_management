@@ -61,6 +61,6 @@ class Booking(models.Model):
      patient = models.ForeignKey(User,on_delete=models.CASCADE)
      doctor=models.ForeignKey(Doctor,on_delete=models.CASCADE)
      Date=models.DateField(max_length=10,null=True)
-     tims_slot=models.CharField(max_length=10,choices=choice_book,null=True)
+     time_slot=models.CharField(max_length=10,choices=choice_book,null=True)
     
     

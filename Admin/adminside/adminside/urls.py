@@ -12,6 +12,14 @@ urlpatterns = [
     path('add',views.add),
     path('docedit',views.edit),
     path('docprofile',views.docprofile),
+
+
+
+
     path('signup',views.Signup),
-    path('login',views.login_api)
+    path('login',views.login_api),
+    path('list_products', views.list_products, name='retrieveproductapi'),
+    path('<int:pk>/update_product', views.update_product, name='updateproductapi'),
+    path('booking',views.book_Appointment),
+
 ]

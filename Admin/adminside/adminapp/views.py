@@ -2,12 +2,26 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .models import User
+from .models import User,Booking
 from django.http import JsonResponse
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Doctor
+from .serializers import ProductSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import ProductSerializer
+
 
 def login(request):
     return render(request,'login.html')
@@ -31,7 +45,6 @@ def docprofile(request):
     return render(request,'doctor_profile.html')
 
 # Signin API
-
 
 @api_view(['POST'])
 @permission_classes((AllowAny,))
@@ -66,3 +79,37 @@ def login_api(request):
                         status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
     return Response({'token': token.key},status=HTTP_200_OK)
+
+
+# Doctor List API(Serializers)
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def list_products(request):
+    products = Doctor.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+
+# Doc Profile API
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def update_product(request, pk):
+    product = get_object_or_404(Doctor, pk=pk)
+    serializer = ProductSerializer(product)
+    return Response(serializer.data)
+
+# Booking API
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+
+def book_Appointment(request):
+    date=request.data.get("Date")
+    time=request.data.get("Time_slot")
+    doctorid=request.data.get('doctor_id')
+    patient_id=request.user.id
+    if not date or not time:
+        return Response({'message':'All fields are required'})
+    booking = Booking.objects.create(Date=date,time_slot=time,doctor_id=doctorid,patient_id=patient_id)
+    booking.save()
+    return Response({'Appointment booked'} ,status = 200)
