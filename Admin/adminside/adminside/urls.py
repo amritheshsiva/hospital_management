@@ -21,5 +21,6 @@ urlpatterns = [
     path('list_products', views.list_products, name='retrieveproductapi'),
     path('<int:pk>/get_doctor', views.get_doctor, name='getdoctorapi'),
     path('booking',views.book_Appointment),
+    path('<int:pk>/appointmentlist',views.my_appointments)
 
 ]
