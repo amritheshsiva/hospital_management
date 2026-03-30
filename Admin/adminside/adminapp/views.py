@@ -44,12 +44,12 @@ def edit(request):
 def docprofile(request):
     return render(request,'doctor_profile.html')
 
-# Signin API
+# Signup API
 
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 
-def Signup(request):
+def signup(request):
     email  = request.data.get("email")
     password = request.data.get("password")
     name = request.data.get("name")
@@ -73,7 +73,7 @@ def login_api(request):
     if email is None or password is None:
         return Response({'error': 'Please provide both email and password'},
                         status=HTTP_400_BAD_REQUEST)
-    user = authenticate(username=email, password=password)
+    user = authenticate(email=email, password=password)
     if not user:
         return Response({'error': 'Invalid Credentials'},
                         status=HTTP_404_NOT_FOUND)
@@ -91,9 +91,15 @@ def list_products(request):
 
 
 # Doc Profile API
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def update_product(request, pk):
+#     product = get_object_or_404(Doctor, pk=pk)
+#     serializer = ProductSerializer(product)
+#     return Response(serializer.data)
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def update_product(request, pk):
+def get_doctor(request, pk):
     product = get_object_or_404(Doctor, pk=pk)
     serializer = ProductSerializer(product)
     return Response(serializer.data)

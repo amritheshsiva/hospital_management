@@ -4,7 +4,7 @@ from django.db import models
 
 class UserManager(BaseUserManager): 
      def create_user(self, email, password=None): 
-          if not email: 
+          if not email:  
               raise ValueError("Users must have an email address") 
           email = self.normalize_email(email) 
           user = self.model(email=email) 

@@ -16,10 +16,10 @@ urlpatterns = [
 
 
 
-    path('signup',views.Signup),
+    path('signup',views.signup),
     path('login',views.login_api),
     path('list_products', views.list_products, name='retrieveproductapi'),
-    path('<int:pk>/update_product', views.update_product, name='updateproductapi'),
+    path('<int:pk>/get_doctor', views.get_doctor, name='getdoctorapi'),
     path('booking',views.book_Appointment),
 
 ]
