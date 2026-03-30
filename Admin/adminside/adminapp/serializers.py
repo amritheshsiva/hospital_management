@@ -1,6 +1,10 @@
 from rest_framework import serializers
-from .models import Doctor
-from .models import Booking
+from .models import User,Doctor,Booking
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=User
+        fields='__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,6 +12,11 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BookingSerializer(serializers.ModelSerializer):
-    class Meta:
+    #  doctor = ProductSerializer(read_only=True)
+     doctor = serializers.CharField(source='doctor.name', read_only=True)
+     patient= serializers.CharField(source='patient.name', read_only=True)
+
+     class Meta:
         model = Booking
         fields = '__all__'
+        

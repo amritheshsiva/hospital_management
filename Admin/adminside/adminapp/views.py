@@ -12,7 +12,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Doctor
-from .serializers import ProductSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
@@ -123,3 +122,28 @@ def my_appointments(request,pk):
     bookings = Booking.objects.filter(patient_id=pk)
     serializer = BookingSerializer(bookings, many=True)
     return Response(serializer.data)
+
+# Password Change API
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_password(request):
+    user = request.user
+    old_password = request.data.get("old_password")
+    new_password = request.data.get("new_password")
+    if not old_password or not new_password:
+        return Response({"error": "Both passwords are required"}, status=400)
+    if not user.check_password(old_password):
+        return Response({"error": "Old password is incorrect"}, status=400)
+    user.set_password(new_password)
+    user.save()
+    user.auth_token.delete()
+    return Response({"message": "Password updated successfully"})
+
+# Logout API
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def logout_api(request):
+    request.user.auth_token.delete()  
+    return Response({"message": "Logged out successfully"})
