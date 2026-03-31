@@ -61,6 +61,12 @@ function UserProfile() {
           <button className="btn btn-primary mt-3" onClick={() => navigate(-1)}>← Back</button>
 
         </div>
+        <button 
+  className="btn btn-outline-primary me-2"
+  onClick={() => navigate('/edit-profile')}
+>
+  Edit Profile
+</button>
       </div>
     </div>
   );
