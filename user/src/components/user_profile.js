@@ -58,9 +58,7 @@ function UserProfile() {
 
           </div>
 
-          <button className="btn btn-primary mt-3" onClick={() => navigate(-1)}>
-            ← Back
-          </button>
+          <button className="btn btn-primary mt-3" onClick={() => navigate(-1)}>← Back</button>
 
         </div>
       </div>
