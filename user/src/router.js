@@ -6,6 +6,7 @@ import Appmnt from "./components/appointments"
 import DocBook from './components/doctor_book'
 import DocProfile from './components/doc_profile'
 import App from "./App";
+import UserProfile from './components/user_profile'
 
 const router = createBrowserRouter([
     { path: '', element: <App/> },
@@ -14,7 +15,8 @@ const router = createBrowserRouter([
     {path:'doclist',element:<DocList/>},
     {path:'appointments',element:<Appmnt/>},
     {path:'book',element:<DocBook/>},
-    {path:'docprofile',element:<DocProfile/>}
+    {path:'docprofile',element:<DocProfile/>},
+    {path:'userprofile',element:<UserProfile/>}
 ]);
 
 export default router;
