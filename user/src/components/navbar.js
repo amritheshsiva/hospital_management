@@ -33,14 +33,8 @@ function Navbar() {
                 My Appointments
               </NavLink>
             </li>
-
-            {/* <li className="nav-item">
-              <button className="nav-link border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#passwordModal">
-                <i className="fa-solid fa-user"></i>
-              </button>
-            </li> */}
             {/* User Profile */}
-            <li className="nav-item dropdown">
+            <li className="nav-item dropdown" >
               <button className="nav-link border-0 bg-transparent "data-bs-toggle="dropdown">
                 <i className="fa-solid fa-user"></i>
               </button>
