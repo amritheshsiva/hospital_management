@@ -103,6 +103,7 @@ def get_doctor(request, pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 
+
 def book_Appointment(request):
     date=request.data.get("Date")
     time=request.data.get("Time_slot")
@@ -110,6 +111,12 @@ def book_Appointment(request):
     patient_id=request.user.id
     if not date or not time:
         return Response({'message':'All fields are required'})
+    if Booking.objects.filter(
+    doctor_id=doctorid,
+    Date=date,
+    time_slot=time
+    ).exists():
+        return Response({"error": "Slot already booked"}, status=400)
     booking = Booking.objects.create(Date=date,time_slot=time,doctor_id=doctorid,patient_id=patient_id)
     booking.save()
     return Response({'Appointment booked'} ,status = 200)
