@@ -9,9 +9,11 @@ function DoctorProfile() {
       <Navbar />
 
       <div className="container mt-4" style={{ minHeight: "100vh" }}>
+      
         <h3 className="text-center mb-4 fw-bold">
           Doctor Profile
         </h3>
+      
         <div className="card p-4 shadow-sm border-0">
           <div className="d-flex align-items-center mb-4">
             <img src="https://imgs.search.brave.com/HL1iM8eX1ZJ0a7abH7FCDElbCbpXmY3-2mQbxAwzYMY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9mYWNl/bGVzcy1tYWxlLWRv/Y3Rvci1hdmF0YXIt/c3RldGhvc2NvcGUt/ZmxhdC1kZXNpZ24t/aWRlYWwtaGVhbHRo/Y2FyZS1tZWRpY2Fs/LWFwcHMtYW5vbnlt/b3VzLXByb2Zlc3Np/b25hbC1wcm9maWxl/cy0zODgzMzMyODIu/anBn" alt="doc"className='rounded-circle me-3 mr-2' style={{width:'70px', height:'70px', objectFit:'cover'}}/>
@@ -54,6 +56,7 @@ function DoctorProfile() {
             Book Appointment
           </button>
         </div>
+        <button className="btn btn-outline-primary mt-3"onClick={() => navigate(-1)}>← Back</button>
       </div>
     </div>
   );
