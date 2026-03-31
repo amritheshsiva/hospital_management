@@ -34,10 +34,27 @@ function Navbar() {
               </NavLink>
             </li>
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <button className="nav-link border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#passwordModal">
                 <i className="fa-solid fa-user"></i>
               </button>
+            </li> */}
+            {/* User Profile */}
+            <li className="nav-item dropdown">
+              <button className="nav-link border-0 bg-transparent "data-bs-toggle="dropdown">
+                <i className="fa-solid fa-user"></i>
+              </button>
+              <ul className="dropdown-menu dropdown-menu-end">
+                <li>
+                  <NavLink to="/userprofile" className="dropdown-item">Profile</NavLink>
+                </li>
+                <li>
+                  <button className="dropdown-item" data-bs-toggle="modal" data-bs-target="#passwordModal">Change Password</button>
+                </li>
+                <li>
+                  <button className="dropdown-item text-danger">Logout</button>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
