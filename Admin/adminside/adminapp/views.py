@@ -183,3 +183,15 @@ def cancel_booking(request, pk):
 
     booking.delete()
     return Response({"message": "Booking cancelled successfully"}, status=200)
+
+
+# User Profile Edit API
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_user(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    serializer = UserSerializer(user, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
