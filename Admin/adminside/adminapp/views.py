@@ -19,7 +19,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import ProductSerializer,BookingSerializer
+from .serializers import ProductSerializer,BookingSerializer,UserSerializer
 
 
 def login(request):
@@ -162,4 +162,12 @@ def filter_doctor(request):
     if spec:
         doctors = doctors.filter(Specialization__icontains=spec)
     serializer = ProductSerializer(doctors, many=True)
+    return Response(serializer.data)
+
+# User Profile API
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user(request, pk):
+    userprof = get_object_or_404(User, pk=pk)
+    serializer = UserSerializer(userprof)
     return Response(serializer.data)
