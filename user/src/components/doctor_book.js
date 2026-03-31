@@ -1,7 +1,9 @@
 import React from "react";
 import Navbar from "../components/navbar";
+import { useNavigate } from "react-router-dom";
 
 function Appointment() {
+  const navigate = useNavigate();
   return (
     <div>
       <Navbar />
@@ -34,7 +36,10 @@ function Appointment() {
             <button className="btn btn-outline-primary mr-2">5:00 PM</button>
             <button className="btn btn-outline-primary mr-2">6:00 PM</button>
           </div>
-          <button className="btn btn-primary w-100">Confirm Appointment</button>
+          <div className="d-flex gap-3">
+            <button className="btn btn-secondary w-50 mr-2" onClick={() => navigate(-1)}>Cancel</button>
+            <button className="btn btn-primary w-50" ml-2>Confirm Appointment</button>
+          </div>
         </div>
       </div>
     </div>
