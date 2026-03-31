@@ -1,27 +1,33 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import Navbar from "../components/navbar";
 import { useNavigate } from "react-router-dom";
 
 function UserEdit() {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({
-    name: "Aditya Sharma",
-    email: "aditya.sharma@gmail.com",
-    phone: "0909090909",
-    gender: "Male",
-    dob: "2002-03-05",
-    address: "23/B MG Road, Trivandrum, Kerala",
-    image: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
-  });
-
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  // Refs for inputs
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const phoneRef = useRef();
+  const genderRef = useRef();
+  const dobRef = useRef();
+  const addressRef = useRef();
+  const imageRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user); // later connect to API
+
+    const updatedUser = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      phone: phoneRef.current.value,
+      gender: genderRef.current.value,
+      dob: dobRef.current.value,
+      address: addressRef.current.value,
+      image: imageRef.current.value,
+    };
+
+    console.log(updatedUser); // later send to backend
     navigate(-1);
   };
 
@@ -32,26 +38,22 @@ function UserEdit() {
       <div className="container mt-4" style={{ minHeight: "100vh" }}>
         <h3 className="text-center mb-4 fw-bold">Edit Profile</h3>
 
-        <div className="card p-4 shadow-sm border-0">
+        <div className="card p-4 shadow-sm border-0" style={{ borderRadius: "15px" }}>
 
           {/* Profile Image */}
           <div className="text-center mb-4">
             <img
-              src={user.image}
+              src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
               alt="user"
               className="rounded-circle mb-2"
               style={{ width: "90px", height: "90px", objectFit: "cover" }}
             />
-            <div>
-              <input
-                type="text"
-                name="image"
-                className="form-control mt-2"
-                placeholder="Paste image URL"
-                value={user.image}
-                onChange={handleChange}
-              />
-            </div>
+            <input
+              type="text"
+              ref={imageRef}
+              className="form-control mt-2"
+              defaultValue="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            />
           </div>
 
           {/* Form */}
@@ -62,10 +64,9 @@ function UserEdit() {
                 <label className="form-label">Full Name</label>
                 <input
                   type="text"
-                  name="name"
+                  ref={nameRef}
                   className="form-control"
-                  value={user.name}
-                  onChange={handleChange}
+                  defaultValue="Aditya Sharma"
                 />
               </div>
 
@@ -73,10 +74,9 @@ function UserEdit() {
                 <label className="form-label">Email</label>
                 <input
                   type="email"
-                  name="email"
+                  ref={emailRef}
                   className="form-control"
-                  value={user.email}
-                  onChange={handleChange}
+                  defaultValue="aditya.sharma@gmail.com"
                 />
               </div>
 
@@ -84,20 +84,18 @@ function UserEdit() {
                 <label className="form-label">Phone</label>
                 <input
                   type="text"
-                  name="phone"
+                  ref={phoneRef}
                   className="form-control"
-                  value={user.phone}
-                  onChange={handleChange}
+                  defaultValue="0909090909"
                 />
               </div>
 
               <div className="col-md-6 mb-3">
                 <label className="form-label">Gender</label>
                 <select
-                  name="gender"
+                  ref={genderRef}
                   className="form-select"
-                  value={user.gender}
-                  onChange={handleChange}
+                  defaultValue="Male"
                 >
                   <option>Male</option>
                   <option>Female</option>
@@ -109,21 +107,19 @@ function UserEdit() {
                 <label className="form-label">Date of Birth</label>
                 <input
                   type="date"
-                  name="dob"
+                  ref={dobRef}
                   className="form-control"
-                  value={user.dob}
-                  onChange={handleChange}
+                  defaultValue="2002-03-05"
                 />
               </div>
 
               <div className="col-md-12 mb-3">
                 <label className="form-label">Address</label>
                 <textarea
-                  name="address"
+                  ref={addressRef}
                   className="form-control"
                   rows="2"
-                  value={user.address}
-                  onChange={handleChange}
+                  defaultValue="23/B MG Road, Trivandrum, Kerala"
                 />
               </div>
 
@@ -133,13 +129,16 @@ function UserEdit() {
             <div className="d-flex justify-content-end gap-2 mt-3">
               <button
                 type="button"
-                className="btn btn-outline-secondary px-4"
+                className="btn btn-outline-secondary btn-sm px-4 rounded-pill"
                 onClick={() => navigate(-1)}
               >
                 Cancel
               </button>
 
-              <button type="submit" className="btn btn-primary px-4">
+              <button
+                type="submit"
+                className="btn btn-primary btn-sm px-4 rounded-pill"
+              >
                 Save Changes
               </button>
             </div>
