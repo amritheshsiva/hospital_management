@@ -171,3 +171,15 @@ def get_user(request, pk):
     userprof = get_object_or_404(User, pk=pk)
     serializer = UserSerializer(userprof)
     return Response(serializer.data)
+
+# Booking Cancel API
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def cancel_booking(request, pk):
+    try:
+        booking = Booking.objects.get(id=pk, patient_id=request.user.id)
+    except Booking.DoesNotExist:
+        return Response({"error": "Booking not found"}, status=404)
+
+    booking.delete()
+    return Response({"message": "Booking cancelled successfully"}, status=200)
