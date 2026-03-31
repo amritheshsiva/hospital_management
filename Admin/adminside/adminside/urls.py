@@ -24,6 +24,7 @@ urlpatterns = [
     path('<int:pk>/appointmentlist',views.my_appointments),
     path('updatepass',views.update_password),
     path('logout',views.logout_api),
-    path('filterdoctor',views.filter_doctor)
+    path('filterdoctor',views.filter_doctor),
+    path('<int:pk>/get_user',views.get_user)
 
 ]
