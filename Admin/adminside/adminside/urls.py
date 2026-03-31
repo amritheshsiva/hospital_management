@@ -14,7 +14,7 @@ urlpatterns = [
     path('docprofile',views.docprofile),
 
 
-
+# API URLS
 
     path('signup',views.signup),
     path('login',views.login_api),
@@ -23,6 +23,7 @@ urlpatterns = [
     path('booking',views.book_Appointment),
     path('<int:pk>/appointmentlist',views.my_appointments),
     path('updatepass',views.update_password),
-    path('logout',views.logout_api)
+    path('logout',views.logout_api),
+    path('filterdoctor',views.filter_doctor)
 
 ]

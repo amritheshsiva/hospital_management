@@ -147,3 +147,19 @@ def update_password(request):
 def logout_api(request):
     request.user.auth_token.delete()  
     return Response({"message": "Logged out successfully"})
+
+
+# Filter API
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def filter_doctor(request):
+    doctors = Doctor.objects.all()
+    name = request.query_params.get('name')
+    spec = request.query_params.get('spec')
+    if name:
+        doctors = doctors.filter(name__icontains=name)
+    if spec:
+        doctors = doctors.filter(Specialization__icontains=spec)
+    serializer = ProductSerializer(doctors, many=True)
+    return Response(serializer.data)
