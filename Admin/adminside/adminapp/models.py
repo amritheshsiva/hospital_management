@@ -62,5 +62,6 @@ class Booking(models.Model):
      doctor=models.ForeignKey(Doctor,on_delete=models.CASCADE)
      Date=models.DateField(max_length=10,null=True)
      time_slot=models.CharField(max_length=10,choices=choice_book,null=True)
+     status=models.CharField(max_length=20,null=True)
     
     

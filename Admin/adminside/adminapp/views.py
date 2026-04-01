@@ -117,7 +117,7 @@ def book_Appointment(request):
     time_slot=time
     ).exists():
         return Response({"error": "Slot already booked"}, status=400)
-    booking = Booking.objects.create(Date=date,time_slot=time,doctor_id=doctorid,patient_id=patient_id)
+    booking = Booking.objects.create(Date=date,time_slot=time,doctor_id=doctorid,patient_id=patient_id,status="Upcoming")
     booking.save()
     return Response({'Appointment booked'} ,status = 200)
 
@@ -179,18 +179,6 @@ def get_user(request, pk):
     serializer = UserSerializer(userprof)
     return Response(serializer.data)
 
-# Booking Cancel API
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
-def cancel_booking(request, pk):
-    try:
-        booking = Booking.objects.get(id=pk, patient_id=request.user.id)
-    except Booking.DoesNotExist:
-        return Response({"error": "Booking not found"}, status=404)
-
-    booking.delete()
-    return Response({"message": "Booking cancelled successfully"}, status=200)
-
 
 # User Profile Edit API
 @api_view(['PUT'])
@@ -202,3 +190,52 @@ def update_user(request, pk):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
+
+
+# Booking cancel API
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def cancel_appointment(request):
+    user_id = request.user.id
+    doctor_id = request.data.get("doctor_id")
+    date = request.data.get("date")
+    time = request.data.get("time")
+
+    bookings = Booking.objects.filter(
+        patient_id=user_id,
+        doctor_id=doctor_id,
+        Date=date,
+        time_slot__icontains=time,
+        status="Upcoming"
+    )
+
+    if not bookings.exists():
+        return Response({"error": "No upcoming appointment found"}, status=404)
+
+    booking = bookings.first()
+    booking.status = "Cancelled"
+    booking.save()
+
+    return Response({"message": "Appointment cancelled"})
+
+# Booking filter API
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def filter_bookings(request):
+    user_id = request.user.id
+    bookings = Booking.objects.filter(patient_id=user_id)
+
+    doctor_name = request.query_params.get('doctor_name')
+    status = request.query_params.get('status')
+
+    # Filter by doctor name
+    if doctor_name:
+        bookings = bookings.filter(doctor__name__icontains=doctor_name)
+
+    # Filter by status
+    if status:
+        bookings = bookings.filter(status__iexact=status)
+
+    serializer = BookingSerializer(bookings, many=True)
+    return Response(serializer.data)
