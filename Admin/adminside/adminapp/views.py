@@ -52,12 +52,20 @@ def signup(request):
     email  = request.data.get("email")
     password = request.data.get("password")
     name = request.data.get("name")
-    if not name or not email or not password:
+    dob=request.data.get("dob")
+    gender=request.data.get('gender')
+    address=request.data.get('address')
+    phone_num=request.data.get('phone_num')
+    if not name or not email or not password or not dob or not gender or not address or not phone_num:
         return Response({'message':'All fields are required'})
     if User.objects.filter(email=email).exists():
         return  JsonResponse({'message':'Email already exist'})
     user = User.objects.create_user(email=email,password=password)
     user.name = name
+    user.dob = dob
+    user.gender = gender
+    user.address = address
+    user.phone_num = phone_num
     user.save()
     return JsonResponse({'message':'user created successsfully'} ,status = 200)
 
