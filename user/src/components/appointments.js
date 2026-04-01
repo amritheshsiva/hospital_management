@@ -9,20 +9,52 @@ function Appointment() {
             <div className='container-fluid' style={{ minHeight: "100vh" }}>
                 <h2 className='text-center mt-4 fw-bold'>My Appointments</h2>
 
-                {/* Search Bar */}
-                <div className="mt-3 d-flex justify-content-center">
-                <div className="d-flex rounded shadow-sm overflow-hidden w-100 mt-3"style={{ background:"#ffffff", maxWidth: "900px" }}>
-                    {/* Searching tab */}
-                    <div className="d-flex align-items-center px-3 flex-grow-1 border-end">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="25" height='25' fill='grey'>
-                        <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9
-                        480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z"/>
-                        </svg>
-                        <input type="text" className="form-control border-0 bg-transparent" placeholder="Search appointments..."/>
+                {/* Search + Dropdown Bar */}
+                <div className="d-flex justify-content-center mt-4">
+                    <div 
+                        className="d-flex align-items-center w-100 shadow-sm rounded-pill overflow-hidden"
+                        style={{ maxWidth: "1000px", background: "#ffffff" }}
+                    >
+
+                        {/* Search Input */}
+                        <div className="d-flex align-items-center flex-grow-1 px-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="grey" viewBox="0 0 640 640">
+                                <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272z"/>
+                            </svg>
+
+                            <input
+                                type="text"
+                                className="form-control border-0 bg-transparent"
+                                placeholder="Search appointments..."
+                            />
+                        </div>
+
+                        {/* Divider */}
+                        <div style={{ width: "1px", height: "30px", background: "#ddd" }}></div>
+
+                        {/* Dropdown */}
+                        <select 
+                            className="form-control border-0"
+                            style={{ 
+                                maxWidth: "160px",
+                                boxShadow: "none",
+                                outline: "none",
+                                background: "transparent"
+                            }}
+                        >
+                            <option>Status</option>
+                            <option>Upcoming</option>
+                            <option>Completed</option>
+                            <option>Cancelled</option>
+                        </select>
+
+                        {/* Search Button */}
+                        <button className="btn btn-primary px-4 h-100">
+                            Search
+                        </button>
+
                     </div>
-                    <button className="btn btn-primary px-4 rounded-0">Search</button>
                 </div>
-            </div>
 
                 {/* Appointment List */}
                 <div className='row px-3 justify-content-center'>
@@ -31,7 +63,7 @@ function Appointment() {
                     <div className='col-md-10 mt-4'>
                         <div 
                             className='card border-0 p-3 shadow-sm'
-                            style={{ borderRadius:'15px', transition:"0.3s" }}
+                            style={{ borderRadius:'15px' }}
                         >
                             <div className='d-flex align-items-center justify-content-between flex-wrap'>
 
@@ -58,7 +90,7 @@ function Appointment() {
                                         Upcoming
                                     </span>
                                     <br />
-                                    <button className='btn btn-outline-danger btn-sm btn-sm px-4'>
+                                    <button className='btn btn-outline-danger btn-sm px-4'>
                                         Cancel
                                     </button>
                                 </div>
