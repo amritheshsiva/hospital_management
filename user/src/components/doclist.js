@@ -1,12 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import {useState,useEffect} from 'react';
 import Navbar from '../components/navbar'
 function DocList() {
     const navigate = useNavigate();
+    const [doctors, setDoctors] = useState([]);
+    useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  fetch("http://127.0.0.1:8000/list_products", {
+    headers: {
+      "Authorization": `Token ${token}`
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      setDoctors(data);
+    })
+    .catch(err => console.log(err));
+}, []);
+
     return (
     <div>
         <Navbar/>
         <div className='container-fluid' style={{ minHeight: "100vh" }}>
+
             <div className="mt-3 d-flex justify-content-center">
                 <div className="d-flex rounded shadow-sm overflow-hidden w-100"style={{ background:"#eaf1f9", maxWidth: "900px" }}>
                     {/* Searching tab */}
@@ -33,34 +52,38 @@ function DocList() {
                 </div>
             </div>
 
-            {/* Doctor 1 */}
+            {/* Doctor List */}
             <div className='row px-3'>
-                <div className='col-md-12 mt-4'>
-                    <div className='card shadow-sm border-0 p-3' style={{borderRadius:'12px'}}>
-                        <div className='d-flex align-items-center justify-content-between'>
-                       
-                            <div className='d-flex align-items-center'>
-                                <img src="https://imgs.search.brave.com/HL1iM8eX1ZJ0a7abH7FCDElbCbpXmY3-2mQbxAwzYMY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9mYWNl/bGVzcy1tYWxlLWRv/Y3Rvci1hdmF0YXIt/c3RldGhvc2NvcGUt/ZmxhdC1kZXNpZ24t/aWRlYWwtaGVhbHRo/Y2FyZS1tZWRpY2Fs/LWFwcHMtYW5vbnlt/b3VzLXByb2Zlc3Np/b25hbC1wcm9maWxl/cy0zODgzMzMyODIu/anBn" alt="doc"className='rounded-circle me-3 mr-2' style={{width:'70px', height:'70px', objectFit:'cover'}}/>
-                                <div>
-                                    <h5 className='mb-1 fw-semibold'>Dr. Arjun</h5>
-                                    <p className='mb-1 text-muted small'>MBBS, MD (Cardiology)</p>
-                                    <div className='d-flex flex-wrap gap-2'>
-                                        <span className='badge bg-light text-danger'>Cardiology</span>
-                                        <span className='badge bg-light text-success'>8+ years experience</span>
+                {doctors.map((doc) => (
+                    <div className='col-md-12 mt-4' key={doc.id}>
+                        <div className='card p-3'>
+                            <div className='col-md-12 mt-4' key={doc.id}>
+                                <div className='card shadow-sm border-0 p-3' style={{borderRadius:'12px'}}>
+                                    <div className='d-flex align-items-center justify-content-between'>
+                                        <div className='d-flex align-items-center'>
+                                            <img src="https://imgs.search.brave.com/HL1iM8eX1ZJ0a7abH7FCDElbCbpXmY3-2mQbxAwzYMY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9mYWNl/bGVzcy1tYWxlLWRv/Y3Rvci1hdmF0YXIt/c3RldGhvc2NvcGUt/ZmxhdC1kZXNpZ24t/aWRlYWwtaGVhbHRo/Y2FyZS1tZWRpY2Fs/LWFwcHMtYW5vbnlt/b3VzLXByb2Zlc3Np/b25hbC1wcm9maWxl/cy0zODgzMzMyODIu/anBn" 
+                                            alt="doc"className='rounded-circle ' style={{width:'90px', height:'90px', objectFit:'cover'}}/>
+                                            <div>
+                                                <h5 className='mb-1 fw-semibold'>{doc.name}</h5>
+                                                <p className='mb-1 text-muted small'>{doc.Qualification}</p>
+                                                <div className='d-flex flex-wrap gap-2'>
+                                                    <span className='badge bg-light text-danger'>{doc.Specialization}</span>
+                                                    <span className='badge bg-light text-success'>{doc.Year_ofExp}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div>
+                                        <button className='btn btn-danger btn-sm py-2 px-3 mr-2 rounded-pill me-2'onClick={() => navigate(`/book/${doc.id}`)}>Book</button>
+                                        <button className='btn btn-primary btn-sm py-2 px-3 rounded-pill' onClick={() => navigate(`/docprofile/${doc.id}`)}>View Profile</button></div>
                                     </div>
-                                    <span className='text-muted small'>🕒 10:00 AM - 1.00 PM | 🕒 4:00 PM - 7:00 PM</span>      
                                 </div>
-                            </div>
-                            <div>
-                                <button className='btn btn-danger btn-sm py-2 px-3 rounded-pill mr-2' onClick={() => navigate('/book')}>Book an appointment</button>
-                                <button className='btn btn-primary btn-sm py-2 px-3 rounded-pill' onClick={()=> navigate('/docprofile')}>View Profile</button>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
-                </div>
+                ))}
                 
                 {/* Docotr 2 */}
-                <div className='col-md-12 mt-4'>
+                {/* <div className='col-md-12 mt-4'>
                     <div className='card shadow-sm border-0 p-3' style={{borderRadius:'12px'}}>
                         <div className='d-flex align-items-center justify-content-between'>
                             <div className='d-flex align-items-center'>
@@ -81,9 +104,9 @@ function DocList() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* Doctor 3 */}
-                <div className='col-md-12 mt-4 '>
+                {/* <div className='col-md-12 mt-4 '>
                     <div className='card shadow-sm border-0 p-3' style={{borderRadius:'12px'}}>
                         <div className='d-flex align-items-center justify-content-between'>
                             <div className='d-flex align-items-center'>
@@ -104,9 +127,9 @@ function DocList() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* Doctor 4 */}
-                <div className='col-md-12 mt-4'>
+                {/* <div className='col-md-12 mt-4'>
                     <div className='card shadow-sm border-0 p-3' style={{borderRadius:'12px'}}>
                         <div className='d-flex align-items-center justify-content-between'>
                             <div className='d-flex align-items-center'>
@@ -127,7 +150,7 @@ function DocList() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </div>
