@@ -1,7 +1,50 @@
 import React from 'react';
+import {useEffect,useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 
-function Appointment() {
+function Appointment(){
+    const navigate = useNavigate();
+    const [appointments,setAppointments]=useState([]);
+    // useEffect(()=>{
+    //     const token=localStorage.getItem('token');
+    //     fetch('http://127.0.0.1:8000/2/appointmentlist',{
+    //         headers:{
+    //             "Authorization":`Token${token}`
+    //         }
+    //     })
+    //     .then(res=>res.json())
+    //     .then(data =>{
+    //         console.log(data);
+    //         setAppointments(data);
+    //     })
+    //     .catch(err=>console.log(err));
+    // },[]);
+    useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    fetch('http://127.0.0.1:8000/2/appointmentlist', {
+        headers: {
+            "Authorization": `Token ${token}`  // ✅ MUST HAVE SPACE
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("API RESPONSE:", data);
+
+        // ✅ ALWAYS ensure array
+        if (Array.isArray(data)) {
+            setAppointments(data);
+        } else {
+            console.error("Not an array:", data);
+            setAppointments([]);   // prevents crash
+        }
+    })
+    .catch(err => {
+        console.error("Fetch error:", err);
+        setAppointments([]);
+    });
+}, []);
     return (
         <div>
             <Navbar/>
@@ -58,8 +101,7 @@ function Appointment() {
 
                 {/* Appointment List */}
                 <div className='row px-3 justify-content-center'>
-
-                    {/* Appointment 1 */}
+                    {Array.isArray(appointments) && appointments.map((appt) => (
                     <div className='col-md-10 mt-4'>
                         <div 
                             className='card border-0 p-3 shadow-sm'
@@ -76,30 +118,40 @@ function Appointment() {
                                     />
                                     <div>
                                         <p className='mb-1 text-muted small'>
-                                            25 Apr 2026 • 11:00 AM
+                                                {appt.Date} • {appt.time_slot}
                                         </p>
-                                        <h5 className='mb-1 fw-semibold'>Dr. Arjun</h5>
+                                        <h5 className='mb-1 fw-semibold'>{appt.doctor}</h5>
                                         <span className='badge bg-light text-secondary'>
-                                            Cardiology
+                                            {appt.specialization}
                                         </span>
                                     </div>
                                 </div>
 
                                 <div className='text-end'>
-                                    <span className='badge bg-success px-3 py-2 mb-2'>
-                                        Upcoming
-                                    </span>
-                                    <br />
-                                    <button className='btn btn-outline-danger btn-sm px-4'>
-                                        Cancel
-                                    </button>
-                                </div>
+                                        <span className={`badge px-3 py-2 mb-2 
+                                            ${appt.status === 'Upcoming' ? 'bg-success' :
+                                              appt.status === 'Completed' ? 'bg-secondary' :
+                                              'bg-danger'
+                                              }`}>
+                                            {appt.status}
+                                        </span>
+
+                                        <br />
+
+                                        {/* Show cancel only for upcoming */}
+                                        {appt.status === "Upcoming" && (
+                                            <button className='btn btn-outline-danger btn-sm px-4'>
+                                                Cancel
+                                            </button>
+                                        )}
+                                    </div>
 
                             </div>
                         </div>
                     </div>
+                    ))}
 
-                    {/* Appointment 2 */}
+                    {/* Appointment 2
                     <div className='col-md-10 mt-4'>
                         <div 
                             className='card border-0 p-3 shadow-sm'
@@ -133,7 +185,7 @@ function Appointment() {
 
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>
