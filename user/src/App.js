@@ -4,8 +4,10 @@ import image from './images/wallpaper.JPEG';
 import img1 from './images/24x7.png';
 import img2 from './images/exp_doc.png';
 import img3 from './images/appointment.png';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+      const navigate = useNavigate();
   return (
     <div>
       <Navbar />
@@ -25,7 +27,7 @@ function App() {
               patient-centered care with a focus on comfort, trust, and faster
               recovery.
             </p>
-            <button className="btn btn-primary px-4 py-2 mt-2 shadow-sm">Book Appointment</button>
+            <button className="btn btn-primary px-4 py-2 mt-2 shadow-sm"  onClick={() => navigate('/doclist')}>Book Appointment</button>
           </div>
 
           <div className="col-md-6 col-12 mt-3">
