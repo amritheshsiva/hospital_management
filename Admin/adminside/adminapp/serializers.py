@@ -12,10 +12,9 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BookingSerializer(serializers.ModelSerializer):
-    #  doctor = ProductSerializer(read_only=True)
      doctor = serializers.CharField(source='doctor.name', read_only=True)
+     specialization = serializers.CharField(source='doctor.Specialization', read_only=True)
      patient= serializers.CharField(source='patient.name', read_only=True)
-
      class Meta:
         model = Booking
         fields = '__all__'
