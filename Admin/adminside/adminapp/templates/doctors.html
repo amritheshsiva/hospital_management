@@ -27,6 +27,9 @@
                 <input class="form-control border-light mr-2"  type="search" placeholder="Search doctors...">
                 <a href="add" class="btn btn-sm btn-primary">Add Doctor</a>
             </div>
+
+
+            <!-- Table -->
             <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
@@ -36,17 +39,20 @@
                         <th>Action</th>
                     </tr>
                 </thead>
+                {%for doctors in doc_list%}
                 <tbody class="table-group-divider">
                     <tr>
-                        <td>Dr. Arjun</td>
-                        <td>Cardiology</td>
+                        <td>{{doctors.name}}</td>
+                        <td>{{doctors.Specialization}}</td>
                         <td>
                             <button class="btn btn-sm btn-primary">View</button>
                             <button class="btn btn-sm btn-warning">Edit</button>
                             <button class="btn btn-sm btn-danger">Delete</button>
                         </td>
                     </tr>
-                    <tr>
+                         {% endfor %}
+
+                    <!-- <tr>
                         <td>Dr. Ansila</td>
                         <td>General Medicine</td>
                         <td>
@@ -72,7 +78,7 @@
                             <button class="btn btn-sm btn-warning">Edit</button>
                             <button class="btn btn-sm btn-danger">Delete</button>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
             </div>
