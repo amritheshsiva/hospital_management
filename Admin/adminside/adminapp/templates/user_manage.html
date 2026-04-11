@@ -34,37 +34,15 @@
                         <th>Profile</th>
                     </tr>
                 </thead>
+                {%for users in user_list%}
                 <tbody>
                     <tr>
-                        <td>#101</td>
-                        <td>Aditya</td>
-                        <td>aditya.sharma@gmail.com</td>
+                        <td>{{users.id}}</td>
+                        <td>{{users.name}}</td>
+                        <td>{{users.email}}</td>
                         <td><a href="#">View Profile</a></td>
                     </tr>
-                    <tr>
-                        <td>#102</td>
-                        <td>Allen</td>
-                        <td>allen.thomas@gmail.com</td>
-                        <td><a href="#">View Profile</a></td>
-                    </tr>
-                    <tr>
-                        <td>#103</td>
-                        <td>Rohan</td>
-                        <td>rohan.geo@gmail.com</td>
-                        <td><a href="#">View Profile</a></td>
-                    </tr>
-                    <tr>
-                        <td>#104</td>
-                        <td>Kiran</td>
-                        <td>kiran.das@gmail.com</td>
-                        <td><a href="#">View Profile</a></td>
-                    </tr>
-                    <tr>
-                        <td>#105</td>
-                        <td>Nikhil</td>
-                        <td>nikhil.thomas@gmail.com</td>
-                        <td><a href="#">View Profile</a></td>
-                    </tr>
+                     {% endfor %}
                 </tbody>
             </table>
         </div>
