@@ -31,29 +31,20 @@
                             <th>Patient Name</th>
                             <th>Doctor Name</th>
                             <th>Appintment Date</th>
+                            <th>Appointment Time</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
+                    {% for booking in booking_list %}
                     <tbody>
                         <tr>
-                            <td>Alice</td>
-                            <td>Dr Arjun</td>
-                            <td>28-03-2026</td>
+                            <td>{{ booking.patient.name }}</td>
+                            <td>{{ booking.doctor.name}}</td>
+                            <td>{{booking.Date}}</td>
+                            <td>{{booking.time_slot}}</td>
+                            <td>{{booking.status}}</td>
                         </tr>
-                        <tr>
-                            <td>Robert</td>
-                            <td>Dr Ansila</td>
-                            <td>28-03-2026</td>
-                        </tr>
-                        <tr>
-                            <td>Sarah</td>
-                            <td>Dr Rahul</td>
-                            <td>10-03-2026</td>
-                        </tr>
-                        <tr>
-                            <td>Will</td>
-                            <td>Dr Riya</td>
-                            <td>02-03-2026</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
