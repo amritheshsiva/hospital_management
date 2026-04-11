@@ -20,18 +20,38 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import ProductSerializer,BookingSerializer,UserSerializer
+from django.shortcuts import redirect
+from django.contrib.auth import login
 
 
-def login(request):
+def adminLogin(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']       
+        user = authenticate(request,   email=  email, password=password)
+        if user is not None and user.is_admin:
+            login(request, user)
+            return redirect('home') 
     return render(request,'login.html')
+
 def home(request):
-    return render(request,"home.html")
+    user_count = User.objects.filter(is_admin=False).count()
+    doctor_count = Doctor.objects.count()
+    appointment_count=Booking.objects.count()
+    return render(request,"home.html",{'user_count': user_count,'doctor_count': doctor_count,'appointment_count':appointment_count})
+
 def doc(request):
-    return render(request,'doctors.html')
+    doc_list=Doctor.objects.all()
+    return render(request,'doctors.html',{'doc_list':doc_list})
+
 def appointment(request):
-    return render(request,'appointments.html')
+    booking_list=Booking.objects.select_related('doctor', 'patient')
+    return render(request,'appointments.html',{"booking_list":booking_list})
+
 def user(request):
-    return render(request,'user_manage.html')
+    user_list=User.objects.filter(is_admin=False)
+    return render(request,'user_manage.html',{'user_list':user_list})
+
 def userprofile(request):
     return render(request,'userprofile.html')
 def report(request):
@@ -43,6 +63,9 @@ def edit(request):
 def docprofile(request):
     return render(request,'doctor_profile.html')
 
+
+
+# select_related
 # Signup API
 
 @api_view(['POST'])
@@ -86,6 +109,7 @@ def login_api(request):
                         status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
     return Response({'token': token.key},status=HTTP_200_OK)
+    # return Response({'token':token.key,'user_id': user.id},status=HTTP_200_OK)
 
 
 # Doctor List API(Serializers)
