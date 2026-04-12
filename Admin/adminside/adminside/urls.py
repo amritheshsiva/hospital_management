@@ -13,6 +13,8 @@ urlpatterns = [
     path('docedit',views.edit),
     path('docprofile',views.docprofile),
 
+    
+
 
 # API URLS
 
