@@ -43,9 +43,21 @@ def home(request):
     appointment_count=Booking.objects.count()
     return render(request,"home.html",{'user_count': user_count,'doctor_count': doctor_count,'appointment_count':appointment_count})
 
+# def doc(request):
+#     doc_list=Doctor.objects.all()
+#     return render(request,'doctors.html',{'doc_list':doc_list})
+from django.db.models import Q
 def doc(request):
-    doc_list=Doctor.objects.all()
-    return render(request,'doctors.html',{'doc_list':doc_list})
+    query = request.GET.get('q')
+    if query:
+        doc_list = Doctor.objects.filter(
+            Q(name__icontains=query) |
+            Q(Specialization__icontains=query)
+        )
+    else:
+        doc_list = Doctor.objects.all()
+
+    return render(request, 'doctors.html', {'doc_list': doc_list})
 
 def appointment(request):
     booking_list=Booking.objects.select_related('doctor', 'patient')
@@ -90,7 +102,10 @@ def add(request):
         )
     return render(request, 'doctor_add.html')
 
-
+def delete_doctor(request, id):
+    doctor = Doctor.objects.get(id=id)
+    doctor.delete()
+    return redirect('/doctors')
 def edit(request):
     return render(request,'doctor_edit.html')
 def docprofile(request, id):

@@ -22,12 +22,20 @@
                 <h1>Doctor Management</h1>
                 <button class="btn btn-secondary ml-auto"><i class="fas fa-user-shield mr-2"></i>Admin</button>
             </div>
-            <div class="d-flex align-items-center mb-4">
+            <!-- <div class="d-flex align-items-center mb-4">
                 <i class="fa-solid fa-magnifying-glass mr-2 "></i>
                 <input class="form-control border-light mr-2"  type="search" placeholder="Search doctors...">
                 <a href="add" class="btn btn-sm btn-primary">Add Doctor</a>
-            </div>
-
+            </div> -->
+            <form method="GET">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="fa-solid fa-magnifying-glass mr-2"></i>
+                    <input 
+                    class="form-control border-light mr-2" type="search" name="q" placeholder="Search doctors..." value="{{ request.GET.q }}">
+                    <button class="btn btn-primary mr-2" type="submit">Search</button>
+                    <a href="add" class="btn btn-sm btn-success">Add Doctor</a>
+                </div>
+            </form>
 
             <!-- Table -->
             <div class="table-responsive">
@@ -39,46 +47,18 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                {%for doctors in doc_list%}
                 <tbody class="table-group-divider">
+                    {%for doctors in doc_list%}
                     <tr>
                         <td>{{doctors.name}}</td>
                         <td>{{doctors.Specialization}}</td>
                         <td>
                             <a href="{% url 'docprofile' doctors.id %}" class="btn btn-sm btn-primary">View </a> 
                             <button class="btn btn-sm btn-warning">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                           <a href="/deletedoctor/{{ doctors.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete?')">Delete</a>
                         </td>
                     </tr>
                          {% endfor %}
-
-                    <!-- <tr>
-                        <td>Dr. Ansila</td>
-                        <td>General Medicine</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">View</button>
-                            <button class="btn btn-sm btn-warning">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Dr. Rahul</td>
-                        <td>Pediatrics</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">View</button>
-                            <button class="btn btn-sm btn-warning">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Dr. Riya</td>
-                        <td>Neurology</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">View</button>
-                            <button class="btn btn-sm btn-warning">Edit</button>
-                            <button class="btn btn-sm btn-danger">Delete</button>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
             </div>

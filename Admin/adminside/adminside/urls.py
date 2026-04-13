@@ -14,6 +14,7 @@ urlpatterns = [
     path('docedit',views.edit),
     # path('docprofile',views.docprofile),
     path('docprofile/<int:id>', views.docprofile, name='docprofile'),
+    path('deletedoctor/<int:id>', views.delete_doctor, name='deletedoctor'),
     
 
     
