@@ -11,7 +11,8 @@ urlpatterns = [
     path('report',views.report),
     path('add',views.add),
     path('docedit',views.edit),
-    path('docprofile',views.docprofile),
+    # path('docprofile',views.docprofile),
+    path('docprofile/<int:id>', views.docprofile, name='docprofile'),
 
     
 

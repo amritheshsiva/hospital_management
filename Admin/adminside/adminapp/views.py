@@ -61,11 +61,10 @@ def add(request):
 def edit(request):
     return render(request,'doctor_edit.html')
 # def docprofile(request):
-#     return render(request,'doctor_profile.html')
-def docprofile(request):
-    return render(request, 'doctor_profile.html')
-
-
+#     return render(request, 'doctor_profile.html')
+def docprofile(request, id):
+    doctor = Doctor.objects.get(id=id)
+    return render(request, 'doctor_profile.html', {'doctor': doctor})
 
 # select_related
 # Signup API
