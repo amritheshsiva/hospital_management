@@ -38,21 +38,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for doc in doctors %}
                             <tr>
-                                <td>1</td>
-                                <td>Dr Arjun</td>
-                                <td>42</td>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ doc.name }}</td>
+                                <td>{{ doc.total_bookings }}</td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Dr Ansila</td>
-                                <td>29</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Dr Riya</td>
-                                <td>20</td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

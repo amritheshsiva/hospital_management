@@ -22,6 +22,8 @@ from rest_framework import status
 from .serializers import ProductSerializer,BookingSerializer,UserSerializer
 from django.shortcuts import redirect
 from django.contrib.auth import login
+from django.db.models import Count
+
 
 
 def adminLogin(request):
@@ -61,7 +63,11 @@ def userprofile(request,id):
     })
 
 def report(request):
-    return render(request,'reports.html')
+    doctors = Doctor.objects.annotate(
+        total_bookings=Count('booking')
+        ).order_by('-total_bookings')
+
+    return render(request, 'reports.html', {'doctors': doctors})
 def add(request):
     return render(request,'doctor_add.html')
 def edit(request):
