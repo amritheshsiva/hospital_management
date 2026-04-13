@@ -26,6 +26,7 @@ from django.db.models import Count
 
 
 
+
 def adminLogin(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -68,8 +69,28 @@ def report(request):
         ).order_by('-total_bookings')
 
     return render(request, 'reports.html', {'doctors': doctors})
+
 def add(request):
-    return render(request,'doctor_add.html')
+    if request.method == "POST":
+        name = request.POST.get('name')
+        specialization = request.POST.get('specialization')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        qualification = request.POST.get('qualification')
+        exp = request.POST.get('experience')
+        image = request.FILES.get('profile_pic')
+        Doctor.objects.create(
+            name=name,
+            Specialization=specialization,
+            phone_num=phone,
+            email=email,
+            Qualification=qualification,
+            Year_ofExp=exp,
+            profile_pic=image
+        )
+    return render(request, 'doctor_add.html')
+
+
 def edit(request):
     return render(request,'doctor_edit.html')
 def docprofile(request, id):
