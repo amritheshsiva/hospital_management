@@ -52,16 +52,20 @@ def user(request):
     user_list=User.objects.filter(is_admin=False)
     return render(request,'user_manage.html',{'user_list':user_list})
 
-def userprofile(request):
-    return render(request,'userprofile.html')
+def userprofile(request,id):
+    user=User.objects.get(id=id)
+    userbooking = Booking.objects.filter(patient_id=id)
+    return render(request, 'userprofile.html', {
+        'user': user,
+        'userbooking': userbooking
+    })
+
 def report(request):
     return render(request,'reports.html')
 def add(request):
     return render(request,'doctor_add.html')
 def edit(request):
     return render(request,'doctor_edit.html')
-# def docprofile(request):
-#     return render(request, 'doctor_profile.html')
 def docprofile(request, id):
     doctor = Doctor.objects.get(id=id)
     return render(request, 'doctor_profile.html', {'doctor': doctor})

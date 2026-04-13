@@ -40,7 +40,7 @@
                         <td>{{users.id}}</td>
                         <td>{{users.name}}</td>
                         <td>{{users.email}}</td>
-                        <td><a href="#">View Profile</a></td>
+                        <td><a href="{% url 'userprofile' users.id %}">View Profile</a></td>
                     </tr>
                      {% endfor %}
                 </tbody>
