@@ -43,9 +43,6 @@ def home(request):
     appointment_count=Booking.objects.count()
     return render(request,"home.html",{'user_count': user_count,'doctor_count': doctor_count,'appointment_count':appointment_count})
 
-# def doc(request):
-#     doc_list=Doctor.objects.all()
-#     return render(request,'doctors.html',{'doc_list':doc_list})
 from django.db.models import Q
 def doc(request):
     query = request.GET.get('q')
@@ -56,7 +53,6 @@ def doc(request):
         )
     else:
         doc_list = Doctor.objects.all()
-
     return render(request, 'doctors.html', {'doc_list': doc_list})
 
 def appointment(request):
@@ -106,8 +102,23 @@ def delete_doctor(request, id):
     doctor = Doctor.objects.get(id=id)
     doctor.delete()
     return redirect('/doctors')
-def edit(request):
-    return render(request,'doctor_edit.html')
+# def edit(request):
+#     return render(request,'doctor_edit.html')
+def docedit(request, id):
+    doctor = Doctor.objects.get(id=id)
+    if request.method == "POST":
+        doctor.name = request.POST.get('name')
+        doctor.Specialization = request.POST.get('specialization')
+        doctor.phone_num = request.POST.get('phone')
+        doctor.email = request.POST.get('email')
+        doctor.Qualification = request.POST.get('qualification')
+        doctor.Year_ofExp = request.POST.get('experience')
+        if request.FILES.get('profile_pic'):
+            doctor.profile_pic = request.FILES.get('profile_pic')
+        doctor.save()
+        return redirect('/doctors')
+    return render(request, 'doctor_edit.html', {'doctor': doctor})
+
 def docprofile(request, id):
     doctor = Doctor.objects.get(id=id)
     return render(request, 'doctor_profile.html', {'doctor': doctor})

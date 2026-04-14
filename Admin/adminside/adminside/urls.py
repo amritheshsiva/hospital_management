@@ -11,8 +11,7 @@ urlpatterns = [
     path('userprofile/<int:id>', views.userprofile, name='userprofile'),
     path('report',views.report),
     path('add',views.add),
-    path('docedit',views.edit),
-    # path('docprofile',views.docprofile),
+    path('docedit/<int:id>', views.docedit, name='docedit'),
     path('docprofile/<int:id>', views.docprofile, name='docprofile'),
     path('deletedoctor/<int:id>', views.delete_doctor, name='deletedoctor'),
     

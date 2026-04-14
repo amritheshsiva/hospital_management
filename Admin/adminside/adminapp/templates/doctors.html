@@ -54,7 +54,7 @@
                         <td>{{doctors.Specialization}}</td>
                         <td>
                             <a href="{% url 'docprofile' doctors.id %}" class="btn btn-sm btn-primary">View </a> 
-                            <button class="btn btn-sm btn-warning">Edit</button>
+                            <a href="{% url 'docedit' doctors.id %}" class="btn btn-sm btn-warning">Edit</a>
                            <a href="/deletedoctor/{{ doctors.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete?')">Delete</a>
                         </td>
                     </tr>
