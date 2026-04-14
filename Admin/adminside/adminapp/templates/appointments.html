@@ -19,10 +19,17 @@
                 <h1>Appointment Management</h1>
                 <button class="btn btn-secondary ml-auto"><i class="fas fa-user-shield mr-2"></i>Admin</button>
             </div>
-            <div style="max-width:300px;">
-                <h6>Select Date</h6>
-                <input class="form-control"  type="date">
-            </div>
+            <form method="GET" class="d-flex align-items-end" style="gap:10px; max-width:400px;">
+                <div class="form-group mb-0">
+                    <label>Select Date</label>
+                    <input type="date" name="date" class="form-control" value="{{ request.GET.date }}">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search mr-1"></i> Search
+                    </button>
+                </div>
+            </form>
             
             <div class="table-responsive mt-3">
                 <table class="table table-bordered table-hover">
@@ -35,14 +42,24 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    {% for booking in booking_list %}
                     <tbody>
+                        {% for booking in booking_list %}
                         <tr>
                             <td>{{ booking.patient.name }}</td>
                             <td>{{ booking.doctor.name}}</td>
                             <td>{{booking.Date}}</td>
                             <td>{{booking.time_slot}}</td>
-                            <td>{{booking.status}}</td>
+                            <td>
+                                {% if booking.status == "Upcoming" %}
+                                <span class="badge badge-success">Upcoming</span>
+                                {% elif booking.status == "Completed" %}
+                                <span class="badge badge-primary">Completed</span>
+                                {% elif booking.status == "Cancelled" %}
+                                <span class="badge badge-danger">Cancelled</span>
+                                {% else %}
+                                <span class="badge badge-secondary">{{ booking.status }}</span>
+                                {% endif %}
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

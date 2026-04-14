@@ -56,8 +56,14 @@ def doc(request):
     return render(request, 'doctors.html', {'doc_list': doc_list})
 
 def appointment(request):
-    booking_list=Booking.objects.select_related('doctor', 'patient')
-    return render(request,'appointments.html',{"booking_list":booking_list})
+    date = request.GET.get('date')
+    if date:
+        booking_list = Booking.objects.filter(Date=date)
+    else:
+        booking_list = Booking.objects.all()
+    return render(request, 'appointments.html', {
+        'booking_list': booking_list
+        })
 
 def user(request):
     user_list=User.objects.filter(is_admin=False)
