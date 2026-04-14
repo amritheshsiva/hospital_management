@@ -45,7 +45,7 @@ class Doctor(models.Model):
      email = models.EmailField(unique=True) 
      Qualification=models.CharField(max_length=30,null=True)
      Year_ofExp=models.CharField(max_length=20,null=True)
-     total_view=models.IntegerField(max_length=100,null=True)
+     total_view=models.IntegerField(null=True)
      is_active = models.BooleanField(default=True) 
 
 
