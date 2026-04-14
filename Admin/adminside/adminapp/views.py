@@ -24,7 +24,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.db.models import Count
 from django.db.models import Q
-
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -38,12 +38,14 @@ def adminLogin(request):
             return redirect('home') 
     return render(request,'login.html')
 
+@login_required(login_url='login')
 def home(request):
     user_count = User.objects.filter(is_admin=False).count()
     doctor_count = Doctor.objects.count()
     appointment_count=Booking.objects.count()
     return render(request,"home.html",{'user_count': user_count,'doctor_count': doctor_count,'appointment_count':appointment_count})
 
+@login_required(login_url='login')
 def doc(request):
     query = request.GET.get('q')
     if query:
@@ -55,6 +57,7 @@ def doc(request):
         doc_list = Doctor.objects.all()
     return render(request, 'doctors.html', {'doc_list': doc_list})
 
+@login_required(login_url='login')
 def appointment(request):
     date = request.GET.get('date')
     if date:
@@ -65,8 +68,7 @@ def appointment(request):
         'booking_list': booking_list
         })
 
-from django.db.models import Q
-
+@login_required(login_url='login')
 def user(request):
     query = request.GET.get('q')
 
@@ -82,6 +84,7 @@ def user(request):
         'user_list': user_list
     })
 
+@login_required(login_url='login')
 def userprofile(request,id):
     user=User.objects.get(id=id)
     userbooking = Booking.objects.filter(patient_id=id)
@@ -90,6 +93,7 @@ def userprofile(request,id):
         'userbooking': userbooking
     })
 
+@login_required(login_url='login')
 def report(request):
     month = request.GET.get('month')
     if month:
@@ -110,6 +114,7 @@ def report(request):
         ).order_by('-total')
     return render(request, 'reports.html', {'data': data})
 
+@login_required(login_url='login')
 def add(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -130,26 +135,42 @@ def add(request):
         )
     return render(request, 'doctor_add.html')
 
+@login_required(login_url='login')
 def delete_doctor(request, id):
     doctor = Doctor.objects.get(id=id)
     doctor.delete()
-    return redirect('/doctors')
+    return redirect('doctors')
 
+
+@login_required(login_url='login')
 def docedit(request, id):
     doctor = Doctor.objects.get(id=id)
     if request.method == "POST":
-        doctor.name = request.POST.get('name')
-        doctor.Specialization = request.POST.get('specialization')
-        doctor.phone_num = request.POST.get('phone')
-        doctor.email = request.POST.get('email')
-        doctor.Qualification = request.POST.get('qualification')
-        doctor.Year_ofExp = request.POST.get('experience')
+        name = request.POST.get('name')
+        if name:
+            doctor.name = name
+        specialization = request.POST.get('specialization')
+        if specialization:
+            doctor.Specialization = specialization
+        phone = request.POST.get('phone')
+        if phone:
+            doctor.phone_num = phone
+        email = request.POST.get('email')
+        if email:
+            doctor.email = email
+        qualification = request.POST.get('qualification')
+        if qualification:
+            doctor.Qualification = qualification
+        exp = request.POST.get('experience')
+        if exp:
+            doctor.Year_ofExp = exp
         if request.FILES.get('profile_pic'):
             doctor.profile_pic = request.FILES.get('profile_pic')
         doctor.save()
-        return redirect('/doctors')
+        return redirect('doctors')
     return render(request, 'doctor_edit.html', {'doctor': doctor})
 
+@login_required(login_url='login')
 def docprofile(request, id):
     doctor = Doctor.objects.get(id=id)
     return render(request, 'doctor_profile.html', {'doctor': doctor})
@@ -158,7 +179,9 @@ def logout_view(request):
     request.session.flush()
     return redirect('login')
 
-# select_related
+
+
+
 # Signup API
 
 @api_view(['POST'])
