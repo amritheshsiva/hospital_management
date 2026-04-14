@@ -5,18 +5,19 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('',views.adminLogin),
+    path('',views.adminLogin,name='login'),
     path('home',views.home,name='home'),
     path('doctors',views.doc),
     path('appointments',views.appointment),
     path('users',views.user),
-    # path('userprofile',views.userprofile),
     path('userprofile/<int:id>', views.userprofile, name='userprofile'),
     path('report',views.report),
     path('add',views.add),
     path('docedit/<int:id>', views.docedit, name='docedit'),
     path('docprofile/<int:id>', views.docprofile, name='docprofile'),
     path('deletedoctor/<int:id>', views.delete_doctor, name='deletedoctor'),
+    path('logout',views.logout_view,name='logout'),
+
     
 
     
@@ -36,7 +37,7 @@ urlpatterns = [
     path('<int:pk>/get_user',views.get_user),
     path('<int:pk>/update_user',views.update_user),
     path('cancelbooking',views.cancel_appointment),
-    path('bookingfilter',views.filter_bookings)
+    path('bookingfilter',views.filter_bookings),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

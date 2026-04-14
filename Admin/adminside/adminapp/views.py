@@ -122,6 +122,10 @@ def docprofile(request, id):
     doctor = Doctor.objects.get(id=id)
     return render(request, 'doctor_profile.html', {'doctor': doctor})
 
+def logout_view(request):
+    request.session.flush()
+    return redirect('login')
+
 # select_related
 # Signup API
 

@@ -20,6 +20,6 @@
         </ul>
     </nav>
     <div class="mt-auto">
-        <a href="/" class="btn btn-danger w-100">Logout</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger w-100" onclick="return confirm('Are you sure?')">Logout</a>
     </div>
 </div>
