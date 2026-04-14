@@ -102,8 +102,7 @@ def delete_doctor(request, id):
     doctor = Doctor.objects.get(id=id)
     doctor.delete()
     return redirect('/doctors')
-# def edit(request):
-#     return render(request,'doctor_edit.html')
+
 def docedit(request, id):
     doctor = Doctor.objects.get(id=id)
     if request.method == "POST":
