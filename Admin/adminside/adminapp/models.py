@@ -39,7 +39,7 @@ class User(AbstractBaseUser):
     
 class Doctor(models.Model):
      name = models.CharField(max_length =255)
-     profile_pic=models.FileField() 
+     profile_pic = models.ImageField(upload_to='doctor_images/')
      Specialization=models.CharField(max_length=30,null=True)
      phone_num=models.CharField(max_length=10,null=True)
      email = models.EmailField(unique=True) 
