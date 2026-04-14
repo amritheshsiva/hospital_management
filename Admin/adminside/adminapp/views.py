@@ -23,6 +23,7 @@ from .serializers import ProductSerializer,BookingSerializer,UserSerializer
 from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.db.models import Count
+from django.db.models import Q
 
 
 
@@ -43,7 +44,6 @@ def home(request):
     appointment_count=Booking.objects.count()
     return render(request,"home.html",{'user_count': user_count,'doctor_count': doctor_count,'appointment_count':appointment_count})
 
-from django.db.models import Q
 def doc(request):
     query = request.GET.get('q')
     if query:
@@ -65,9 +65,22 @@ def appointment(request):
         'booking_list': booking_list
         })
 
+from django.db.models import Q
+
 def user(request):
-    user_list=User.objects.filter(is_admin=False)
-    return render(request,'user_manage.html',{'user_list':user_list})
+    query = request.GET.get('q')
+
+    if query:
+        user_list = User.objects.filter(
+            is_admin=False,
+            name__icontains=query
+        )
+    else:
+        user_list = User.objects.filter(is_admin=False)
+
+    return render(request, 'user_manage.html', {
+        'user_list': user_list
+    })
 
 def userprofile(request,id):
     user=User.objects.get(id=id)
@@ -76,14 +89,6 @@ def userprofile(request,id):
         'user': user,
         'userbooking': userbooking
     })
-
-# def report(request):
-#     doctors = Doctor.objects.annotate(
-#         total_bookings=Count('booking')
-#         ).order_by('-total_bookings')
-
-#     return render(request, 'reports.html', {'doctors': doctors})
-from django.db.models import Count
 
 def report(request):
     month = request.GET.get('month')
