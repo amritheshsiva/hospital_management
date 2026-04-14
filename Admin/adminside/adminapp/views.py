@@ -77,12 +77,33 @@ def userprofile(request,id):
         'userbooking': userbooking
     })
 
-def report(request):
-    doctors = Doctor.objects.annotate(
-        total_bookings=Count('booking')
-        ).order_by('-total_bookings')
+# def report(request):
+#     doctors = Doctor.objects.annotate(
+#         total_bookings=Count('booking')
+#         ).order_by('-total_bookings')
 
-    return render(request, 'reports.html', {'doctors': doctors})
+#     return render(request, 'reports.html', {'doctors': doctors})
+from django.db.models import Count
+
+def report(request):
+    month = request.GET.get('month')
+    if month:
+        year, month = month.split('-')
+        data = Booking.objects.filter(
+            Date__year=year,
+            Date__month=month
+        ).values(
+            'doctor__name'
+        ).annotate(
+            total=Count('id')
+        ).order_by('-total')
+    else:
+        data = Booking.objects.values(
+            'doctor__name'
+        ).annotate(
+            total=Count('id')
+        ).order_by('-total')
+    return render(request, 'reports.html', {'data': data})
 
 def add(request):
     if request.method == "POST":
