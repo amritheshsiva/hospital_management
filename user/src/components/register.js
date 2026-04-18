@@ -26,11 +26,11 @@ function Register() {
         }
         if(passwordConf !== password){
     setErrorMessage('Passwords do not match');
-    return; // stop execution
+    return; 
 }
         axios.post('http://127.0.0.1:8000/signup',user).then(response=>{
             setErrorMessage('');
-            navigate('/');
+            navigate('/login');
         }).catch(error=>{
             if(error.response.data.errors){
                 setErrorMessage(Object.values(error.response.data.errors).join(' '));
