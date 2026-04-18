@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     {path:'doclist',element:<DocList/>},
     {path:'appointments',element:<Appmnt/>},
     {path:'book/:id',element:<DocBook/>},
-    {path:'docprofile',element:<DocProfile/>},
+    {path:'docprofile/:id',element:<DocProfile/>},
     {path:'userprofile',element:<UserProfile/>},
     {path:'userprofedit',element:<UserProfileEdit/>}
 ]);
