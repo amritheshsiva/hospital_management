@@ -38,8 +38,6 @@ function Appointment(){
 // Filter function code
 const handleFilter = () => {
     const token = localStorage.getItem("token");
-
-    // ✅ IF NO FILTER → load all appointments
     if (!searchDoctor && !status) {
         fetch(`http://127.0.0.1:8000/${userId}/appointmentlist`, {
             headers: {
@@ -72,6 +70,29 @@ const handleFilter = () => {
 }
 
 
+const handleCancel = (id) => {
+  const token = localStorage.getItem("token");
+  
+
+  fetch("http://127.0.0.1:8000/cancelbooking", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${token}`
+    },
+    body: JSON.stringify({
+      booking_id: id
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Cancelled:", data);
+
+      // 🔥 Refresh appointments
+      handleFilter();  // reuse your function
+    })
+    .catch(err => console.log(err));
+};
 
     return (
         <div>
@@ -133,7 +154,7 @@ const handleFilter = () => {
                 {/* Appointment List */}
                 <div className='row px-3 justify-content-center'>
                     {Array.isArray(appointments) && appointments.map((appt) => (
-                    <div className='col-md-10 mt-4'>
+                    <div className='col-md-10 mt-4'key={appt.id}>
                         <div 
                             className='card border-0 p-3 shadow-sm'
                             style={{ borderRadius:'15px' }}
@@ -171,7 +192,7 @@ const handleFilter = () => {
 
                                         {/* Show cancel only for upcoming */}
                                         {appt.status === "Upcoming" && (
-                                            <button className='btn btn-outline-danger btn-sm px-4'>
+                                            <button className='btn btn-outline-danger btn-sm px-4' onClick={() => handleCancel(appt.id)}>
                                                 Cancel
                                             </button>
                                         )}

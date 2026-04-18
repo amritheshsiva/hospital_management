@@ -341,30 +341,53 @@ def update_user(request, pk):
 
 # Booking cancel API
 
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def cancel_appointment(request):
+#     user_id = request.user.id
+#     doctor_id = request.data.get("doctor_id")
+#     date = request.data.get("date")
+#     time = request.data.get("time")
+
+#     bookings = Booking.objects.filter(
+#         patient_id=user_id,
+#         doctor_id=doctor_id,
+#         Date=date,
+#         time_slot__icontains=time,
+#         status="Upcoming"
+#     )
+
+#     if not bookings.exists():
+#         return Response({"error": "No upcoming appointment found"}, status=404)
+
+#     booking = bookings.first()
+#     booking.status = "Cancelled"
+#     booking.save()
+
+#     return Response({"message": "Appointment cancelled"})
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def cancel_appointment(request):
-    user_id = request.user.id
-    doctor_id = request.data.get("doctor_id")
-    date = request.data.get("date")
-    time = request.data.get("time")
+    try:
+        print("REQUEST DATA:", request.data)
 
-    bookings = Booking.objects.filter(
-        patient_id=user_id,
-        doctor_id=doctor_id,
-        Date=date,
-        time_slot__icontains=time,
-        status="Upcoming"
-    )
+        booking_id = request.data.get('booking_id')
 
-    if not bookings.exists():
-        return Response({"error": "No upcoming appointment found"}, status=404)
+        if not booking_id:
+            return Response({"error": "booking_id missing"}, status=400)
+    
+        booking = Booking.objects.filter(id=booking_id).first()
 
-    booking = bookings.first()
-    booking.status = "Cancelled"
-    booking.save()
+        if not booking:
+            return Response({"error": "Booking not found"}, status=404)
 
-    return Response({"message": "Appointment cancelled"})
+        booking.status = "Cancelled"
+        booking.save()
+
+        return Response({"message": "Cancelled successfully"})
+
+    except Exception as e:
+        print("ERROR:", e)
+        return Response({"error": str(e)}, status=500)
 
 # Booking filter API
 @api_view(['GET'])
