@@ -180,7 +180,7 @@ def logout_view(request):
     return redirect('login')
 
 
-
+# APIs
 
 # Signup API
 
@@ -366,28 +366,27 @@ def update_user(request, pk):
 
 #     return Response({"message": "Appointment cancelled"})
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def cancel_appointment(request):
+    booking_id = request.data.get("booking_id")
+    user_id = request.user.id
+
+    if not booking_id:
+        return Response({"error": "booking_id required"}, status=400)
+
     try:
-        print("REQUEST DATA:", request.data)
+        booking = Booking.objects.get(id=booking_id, patient_id=user_id)
 
-        booking_id = request.data.get('booking_id')
-
-        if not booking_id:
-            return Response({"error": "booking_id missing"}, status=400)
-    
-        booking = Booking.objects.filter(id=booking_id).first()
-
-        if not booking:
-            return Response({"error": "Booking not found"}, status=404)
+        if booking.status != "Upcoming":
+            return Response({"error": "Already cancelled"}, status=400)
 
         booking.status = "Cancelled"
         booking.save()
 
-        return Response({"message": "Cancelled successfully"})
+        return Response({"message": "Appointment cancelled"})
 
-    except Exception as e:
-        print("ERROR:", e)
-        return Response({"error": str(e)}, status=500)
+    except Booking.DoesNotExist:
+        return Response({"error": "Booking not found"}, status=404)
 
 # Booking filter API
 @api_view(['GET'])

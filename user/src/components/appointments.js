@@ -1,15 +1,12 @@
 import React from 'react';
 import {useEffect,useState} from 'react'
-// import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 
 function Appointment(){
-    // const navigate = useNavigate();
     const [appointments,setAppointments]=useState([]);
     const [searchDoctor,setSearchDoctor]=useState("");
     const [status, setStatus] = useState("");
     const userId = localStorage.getItem("user_id");
-
 
     useEffect(() => {
     const token = localStorage.getItem('token');
@@ -26,7 +23,7 @@ function Appointment(){
             setAppointments(data);
         } else {
             console.error("Not an array:", data);
-            setAppointments([]);   // prevents crash
+            setAppointments([]);  
         }
     })
     .catch(err => {
@@ -35,7 +32,6 @@ function Appointment(){
     });
 }, [userId]);
 
-// Filter function code
 const handleFilter = () => {
     const token = localStorage.getItem("token");
     if (!searchDoctor && !status) {
@@ -46,7 +42,6 @@ const handleFilter = () => {
         })
         .then(res => res.json())
         .then(data => setAppointments(data));
-
         return;
     }
 
@@ -72,26 +67,22 @@ const handleFilter = () => {
 
 const handleCancel = (id) => {
   const token = localStorage.getItem("token");
-  
 
   fetch("http://127.0.0.1:8000/cancelbooking", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Token ${token}`
+      Authorization: `Token ${token}`
     },
     body: JSON.stringify({
-      booking_id: id
+      booking_id: id   // 
     })
   })
     .then(res => res.json())
     .then(data => {
-      console.log("Cancelled:", data);
-
-      // 🔥 Refresh appointments
-      handleFilter();  // reuse your function
-    })
-    .catch(err => console.log(err));
+      console.log(data);
+      handleFilter(); // refresh
+    });
 };
 
     return (
@@ -189,20 +180,19 @@ const handleCancel = (id) => {
                                         </span>
 
                                         <br />
-
-                                        {/* Show cancel only for upcoming */}
                                         {appt.status === "Upcoming" && (
-                                            <button className='btn btn-outline-danger btn-sm px-4' onClick={() => handleCancel(appt.id)}>
-                                                Cancel
-                                            </button>
+                                            <button className='btn btn-outline-danger btn-sm px-4' onClick={() => {
+                                                if (window.confirm("Are you sure you want to cancel this appointment?")) {
+                                                    handleCancel(appt.id);
+                                                }
+                                                }}
+                                            >Cancel</button>
                                         )}
                                     </div>
-
                             </div>
                         </div>
                     </div>
                     ))}
-
                 </div>
             </div>
         </div>
