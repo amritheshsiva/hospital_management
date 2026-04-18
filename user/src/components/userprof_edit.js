@@ -126,7 +126,7 @@ function UserEdit() {
               </div>
 
               <div className="col-md-6 mb-3">
-                <label className="form-label">Gender</label>
+                <label className="form-label mr-1">Gender</label>
                 <select
                   ref={genderRef}
                   className="form-select"
@@ -164,7 +164,7 @@ function UserEdit() {
             <div className="d-flex justify-content-end gap-2 mt-3">
               <button
                 type="button"
-                className="btn btn-outline-secondary btn-sm px-4 rounded-pill"
+                className="btn btn-outline-secondary btn-sm px-4 rounded-pill mr-1"
                 onClick={() => navigate(-1)}
               >
                 Cancel
@@ -172,7 +172,7 @@ function UserEdit() {
 
               <button
                 type="submit"
-                className="btn btn-primary btn-sm px-4 rounded-pill"
+                className="btn btn-primary btn-sm px-4 rounded-pill ml-1"
               >
                 Save Changes
               </button>

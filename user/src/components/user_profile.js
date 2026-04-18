@@ -42,7 +42,7 @@ function UserProfile() {
               <img
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 alt="user"
-                className="rounded-circle me-3"
+                className="rounded-circle me-3 mr-2"
                 style={{ width: "80px", height: "80px" }}
               />
               <div>
@@ -55,50 +55,41 @@ function UserProfile() {
               className="btn btn-outline-primary btn-sm px-4 rounded-pill mt-2"
               onClick={() => navigate("/userprofedit")}
             >
-              ✏️ Edit Profile
+              Edit Profile
             </button>
 
           </div>
 
           {/* Details */}
           <div className="row">
-
             <div className="col-md-6 mb-3">
               <h6 className="text-muted">Email</h6>
               <p className="fw-semibold">{user.email}</p>
             </div>
-
             <div className="col-md-6 mb-3">
               <h6 className="text-muted">Phone</h6>
               <p className="fw-semibold">{user.phone_num || "Not provided"}</p>
             </div>
-
             <div className="col-md-6 mb-3">
               <h6 className="text-muted">Gender</h6>
               <p className="fw-semibold">{user.gender || "Not provided"}</p>
             </div>
-
             <div className="col-md-6 mb-3">
               <h6 className="text-muted">Date of Birth</h6>
               <p className="fw-semibold">{user.dob || "Not provided"}</p>
             </div>
-
             <div className="col-md-12 mb-3">
               <h6 className="text-muted">Address</h6>
               <p className="fw-semibold">{user.address || "Not provided"}</p>
             </div>
-
           </div>
-
           <div className="d-flex justify-content-end">
             <button
               className="btn btn-primary btn-sm px-4 rounded-pill"
               onClick={() => navigate(-1)}
-            >
-              ← Back
+            >← Back
             </button>
           </div>
-
         </div>
       </div>
     </div>

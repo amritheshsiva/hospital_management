@@ -36,7 +36,6 @@ const handleSearch = () => {
   if (specialization) {
     url += `spec=${specialization}`;
   }
-
   fetch(url, {
     headers: {
       "Authorization": `Token ${token}`
@@ -51,12 +50,11 @@ const handleSearch = () => {
 };
 
     return (
-    <div>
+    <div style={{minHeight: "100vh"}}>
         <Navbar/>
-        <div className='container-fluid' style={{ minHeight: "100vh" }}>
-
+        <div className='container-fluid' style={{ minHeight: "100vh"}}>
             <div className="mt-3 d-flex justify-content-center">
-                <div className="d-flex rounded shadow-sm overflow-hidden w-100"style={{ background:"#eaf1f9", maxWidth: "900px" }}>
+                <div className="d-flex rounded shadow-sm overflow-hidden w-100 mt-3"style={{ background:"    #eaf1f9", maxWidth: "900px" }}>
                     {/* Searching tab */}
                     <div className="d-flex align-items-center px-3 flex-grow-1 border-end">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="25" height='25' fill='grey'>
@@ -65,6 +63,7 @@ const handleSearch = () => {
                         </svg>
                         <input type="text" className="form-control border-0 bg-transparent" placeholder="Search doctor..." onChange={(e) => setSearchName(e.target.value)}/>
                     </div>
+                    
                     {/* Speciality search */}
                     <div className="d-flex align-items-center px-3 border-end">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width='25' height='25' fill='grey'><path d="M64 112C64 85.5 85.5 64 112 64L160 64C177.7 64 192 78.3 192 96C192 113.7 177.7 128 160 128L128 128L128 256C128 309 171 352 224 352C277 352 320 309 320 256L320 128L288 128C270.3 128 256 113.7 256 96C256 78.3 270.3 64 288 64L336 64C362.5 64 384 85.5 384 112L384 256C384 333.4 329 398 256 412.8L256 432C256 493.9 306.1 544 368 544C429.9 544 480 493.9 480 432L480 346.5C442.7 333.3 416 297.8 416 256C416 203 459 160 512 160C565 160 608 203 608 256C608 297.8 581.3 333.4 544 346.5L544 432C544 529.2 465.2 608 368 608C270.8 608 192 529.2 192 432L192 412.8C119 398 64 333.4 64 256L64 112zM512 288C529.7 288 544 273.7 544 256C544 238.3 529.7 224 512 224C494.3 224 480 238.3 480 256C480 273.7 494.3 288 512 288z"/></svg>
@@ -76,18 +75,16 @@ const handleSearch = () => {
                         <option>Neurology</option>
                         </select>
                     </div>
-                    
                     <button className="btn btn-primary px-4 rounded-0" onClick={handleSearch}>Search</button>
                 </div>
             </div>
 
             {/* Doctor List */}
-            <div className='row px-3'>
+            <div className='row px-3 '>
                 {doctors.map((doc) => (
                     <div className='col-md-12 mt-4' key={doc.id}>
-                        <div className='card p-3'>
                             <div className='col-md-12 mt-4' key={doc.id}>
-                                <div className='card shadow-sm border-8 p-3' style={{borderRadius:'12px'}}>
+                                <div className='card shadow-sm border-8 p-3' style={{borderRadius:'12px',background: "rgba(255, 255, 255, 0.9)"}}>
                                     <div className='d-flex align-items-center justify-content-between'>
                                         <div className='d-flex align-items-center'>
                                             <img src="https://imgs.search.brave.com/HL1iM8eX1ZJ0a7abH7FCDElbCbpXmY3-2mQbxAwzYMY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9mYWNl/bGVzcy1tYWxlLWRv/Y3Rvci1hdmF0YXIt/c3RldGhvc2NvcGUt/ZmxhdC1kZXNpZ24t/aWRlYWwtaGVhbHRo/Y2FyZS1tZWRpY2Fs/LWFwcHMtYW5vbnlt/b3VzLXByb2Zlc3Np/b25hbC1wcm9maWxl/cy0zODgzMzMyODIu/anBn" 
@@ -107,10 +104,8 @@ const handleSearch = () => {
                                     </div>
                                 </div>
                             </div>                            
-                        </div>
                     </div>
                 ))}
-                
             </div>
         </div>
     </div>
