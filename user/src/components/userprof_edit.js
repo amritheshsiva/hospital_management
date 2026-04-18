@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/navbar";
 import { useNavigate } from "react-router-dom";
 
 function UserEdit() {
   const navigate = useNavigate();
 
-  // Refs for inputs
+  const [user, setUser] = useState(null);
   const nameRef = useRef();
   const emailRef = useRef();
   const phoneRef = useRef();
@@ -14,22 +14,59 @@ function UserEdit() {
   const addressRef = useRef();
   const imageRef = useRef();
 
+  useEffect(() => {
+    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
+
+    fetch(`http://127.0.0.1:8000/${userId}/get_user`, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("USER:", data);
+        setUser(data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
 
     const updatedUser = {
       name: nameRef.current.value,
       email: emailRef.current.value,
-      phone: phoneRef.current.value,
+      phone_num: phoneRef.current.value, 
       gender: genderRef.current.value,
       dob: dobRef.current.value,
       address: addressRef.current.value,
       image: imageRef.current.value,
     };
 
-    console.log(updatedUser); // later send to backend
-    navigate(-1);
+    fetch(`http://127.0.0.1:8000/${userId}/update_user`, {
+      method: "PUT", // or PATCH if needed
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify(updatedUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("UPDATED:", data);
+        alert("Profile updated successfully");
+        navigate("/userprofile");
+      })
+      .catch((err) => console.log(err));
   };
+
+  if (!user) {
+    return <h3 className="text-center mt-5">Loading...</h3>;
+  }
 
   return (
     <div>
@@ -38,35 +75,33 @@ function UserEdit() {
       <div className="container mt-4" style={{ minHeight: "100vh" }}>
         <h3 className="text-center mb-4 fw-bold">Edit Profile</h3>
 
-        <div className="card p-4 shadow-sm border-0" style={{ borderRadius: "15px" }}>
-
+        <div
+          className="card p-4 shadow-sm border-0"
+          style={{ borderRadius: "15px" }}
+        >
           {/* Profile Image */}
           <div className="text-center mb-4">
             <img
-              src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+              src={
+                user.image ||
+                "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+              }
               alt="user"
               className="rounded-circle mb-2"
               style={{ width: "90px", height: "90px", objectFit: "cover" }}
-            />
-            <input
-              type="text"
-              ref={imageRef}
-              className="form-control mt-2"
-              defaultValue="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
             />
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit}>
             <div className="row">
-
               <div className="col-md-6 mb-3">
                 <label className="form-label">Full Name</label>
                 <input
                   type="text"
                   ref={nameRef}
                   className="form-control"
-                  defaultValue="Aditya Sharma"
+                  defaultValue={user.name}
                 />
               </div>
 
@@ -76,7 +111,7 @@ function UserEdit() {
                   type="email"
                   ref={emailRef}
                   className="form-control"
-                  defaultValue="aditya.sharma@gmail.com"
+                  defaultValue={user.email}
                 />
               </div>
 
@@ -86,7 +121,7 @@ function UserEdit() {
                   type="text"
                   ref={phoneRef}
                   className="form-control"
-                  defaultValue="0909090909"
+                  defaultValue={user.phone_num || ""}
                 />
               </div>
 
@@ -95,8 +130,9 @@ function UserEdit() {
                 <select
                   ref={genderRef}
                   className="form-select"
-                  defaultValue="Male"
+                  defaultValue={user.gender || ""}
                 >
+                  <option value="">Select</option>
                   <option>Male</option>
                   <option>Female</option>
                   <option>Other</option>
@@ -109,7 +145,7 @@ function UserEdit() {
                   type="date"
                   ref={dobRef}
                   className="form-control"
-                  defaultValue="2002-03-05"
+                  defaultValue={user.dob || ""}
                 />
               </div>
 
@@ -119,10 +155,9 @@ function UserEdit() {
                   ref={addressRef}
                   className="form-control"
                   rows="2"
-                  defaultValue="23/B MG Road, Trivandrum, Kerala"
+                  defaultValue={user.address || ""}
                 />
               </div>
-
             </div>
 
             {/* Buttons */}
@@ -142,7 +177,6 @@ function UserEdit() {
                 Save Changes
               </button>
             </div>
-
           </form>
         </div>
       </div>
