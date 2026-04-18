@@ -1,38 +1,27 @@
 import React from 'react';
 import {useEffect,useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 
 function Appointment(){
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [appointments,setAppointments]=useState([]);
-    // useEffect(()=>{
-    //     const token=localStorage.getItem('token');
-    //     fetch('http://127.0.0.1:8000/2/appointmentlist',{
-    //         headers:{
-    //             "Authorization":`Token${token}`
-    //         }
-    //     })
-    //     .then(res=>res.json())
-    //     .then(data =>{
-    //         console.log(data);
-    //         setAppointments(data);
-    //     })
-    //     .catch(err=>console.log(err));
-    // },[]);
+    const [searchDoctor,setSearchDoctor]=useState("");
+    const [status, setStatus] = useState("");
+    const userId = localStorage.getItem("user_id");
+
+
     useEffect(() => {
     const token = localStorage.getItem('token');
 
-    fetch('http://127.0.0.1:8000/2/appointmentlist', {
+    fetch(`http://127.0.0.1:8000/${userId}/appointmentlist`, {
         headers: {
-            "Authorization": `Token ${token}`  // ✅ MUST HAVE SPACE
+            "Authorization": `Token ${token}`  
         }
     })
     .then(res => res.json())
     .then(data => {
         console.log("API RESPONSE:", data);
-
-        // ✅ ALWAYS ensure array
         if (Array.isArray(data)) {
             setAppointments(data);
         } else {
@@ -44,7 +33,46 @@ function Appointment(){
         console.error("Fetch error:", err);
         setAppointments([]);
     });
-}, []);
+}, [userId]);
+
+// Filter function code
+const handleFilter = () => {
+    const token = localStorage.getItem("token");
+
+    // ✅ IF NO FILTER → load all appointments
+    if (!searchDoctor && !status) {
+        fetch(`http://127.0.0.1:8000/${userId}/appointmentlist`, {
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => setAppointments(data));
+
+        return;
+    }
+
+    let url = "http://127.0.0.1:8000/bookingfilter?";
+
+    if (searchDoctor) {
+        url += `doctor_name=${searchDoctor}&`;
+    }
+
+    if (status) {
+        url += `status=${status}`;
+    }
+
+    fetch(url, {
+        headers: {
+            'Authorization': `Token ${token}`
+        }
+    })
+    .then(res => res.json())
+    .then(data => setAppointments(data));
+}
+
+
+
     return (
         <div>
             <Navbar/>
@@ -69,6 +97,7 @@ function Appointment(){
                                 type="text"
                                 className="form-control border-0 bg-transparent"
                                 placeholder="Search appointments..."
+                                onChange={(e)=>setSearchDoctor(e.target.value)}
                             />
                         </div>
 
@@ -84,15 +113,17 @@ function Appointment(){
                                 outline: "none",
                                 background: "transparent"
                             }}
+                            value={status}
+                            onChange={(e)=>setStatus(e.target.value)}
                         >
-                            <option>Status</option>
+                            <option value="">All Status</option>
                             <option>Upcoming</option>
                             <option>Completed</option>
                             <option>Cancelled</option>
                         </select>
 
                         {/* Search Button */}
-                        <button className="btn btn-primary px-4 h-100">
+                        <button className="btn btn-primary px-4 h-100" onClick={handleFilter}>
                             Search
                         </button>
 
@@ -150,42 +181,6 @@ function Appointment(){
                         </div>
                     </div>
                     ))}
-
-                    {/* Appointment 2
-                    <div className='col-md-10 mt-4'>
-                        <div 
-                            className='card border-0 p-3 shadow-sm'
-                            style={{ borderRadius:'15px' }}
-                        >
-                            <div className='d-flex align-items-center justify-content-between flex-wrap'>
-
-                                <div className='d-flex align-items-center'>
-                                    <img 
-                                        src="https://imgs.search.brave.com/HL1iM8eX1ZJ0a7abH7FCDElbCbpXmY3-2mQbxAwzYMY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9mYWNl/bGVzcy1tYWxlLWRv/Y3Rvci1hdmF0YXIt/c3RldGhvc2NvcGUt/ZmxhdC1kZXNpZ24t/aWRlYWwtaGVhbHRo/Y2FyZS1tZWRpY2Fs/LWFwcHMtYW5vbnlt/b3VzLXByb2Zlc3Np/b25hbC1wcm9maWxl/cy0zODgzMzMyODIu/anBn"
-                                        alt="doc"
-                                        className='rounded-circle me-3'
-                                        style={{width:'70px', height:'70px', objectFit:'cover'}}
-                                    />
-                                    <div>
-                                        <p className='mb-1 text-muted small'>
-                                            22 Apr 2026 • 5:30 PM
-                                        </p>
-                                        <h5 className='mb-1 fw-semibold'>Dr. Rahul</h5>
-                                        <span className='badge bg-light text-secondary'>
-                                            Pediatrics
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className='text-end'>
-                                    <span className='badge bg-secondary px-3 py-2'>
-                                        Completed
-                                    </span>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div> */}
 
                 </div>
             </div>

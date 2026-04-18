@@ -15,8 +15,10 @@ function Login() {
             email:email,
             password:password
         }).then(response=>{
+            console.log(response.data); //Testing Purpose
             setErrorMessage('')
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("user_id", response.data.user_id); 
             navigate('/');
         }).catch(error=>{
             if(error.response.data.errors){
