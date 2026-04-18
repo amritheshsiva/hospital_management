@@ -34,7 +34,6 @@ class User(AbstractBaseUser):
      address=models.TextField(max_length=100,null=True)
      phone_num=models.CharField(max_length=10,null=True)
      objects = UserManager() 
-
      USERNAME_FIELD = 'email'
     
 class Doctor(models.Model):

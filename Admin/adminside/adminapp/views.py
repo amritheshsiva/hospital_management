@@ -180,7 +180,7 @@ def logout_view(request):
     return redirect('login')
 
 
-# APIs
+# API SECTION
 
 # Signup API
 
@@ -338,53 +338,21 @@ def update_user(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 
-
-# Booking cancel API
-
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def cancel_appointment(request):
-#     user_id = request.user.id
-#     doctor_id = request.data.get("doctor_id")
-#     date = request.data.get("date")
-#     time = request.data.get("time")
-
-#     bookings = Booking.objects.filter(
-#         patient_id=user_id,
-#         doctor_id=doctor_id,
-#         Date=date,
-#         time_slot__icontains=time,
-#         status="Upcoming"
-#     )
-
-#     if not bookings.exists():
-#         return Response({"error": "No upcoming appointment found"}, status=404)
-
-#     booking = bookings.first()
-#     booking.status = "Cancelled"
-#     booking.save()
-
-#     return Response({"message": "Appointment cancelled"})
+# Booking Cancel API
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def cancel_appointment(request):
     booking_id = request.data.get("booking_id")
     user_id = request.user.id
-
     if not booking_id:
         return Response({"error": "booking_id required"}, status=400)
-
     try:
         booking = Booking.objects.get(id=booking_id, patient_id=user_id)
-
         if booking.status != "Upcoming":
             return Response({"error": "Already cancelled"}, status=400)
-
         booking.status = "Cancelled"
         booking.save()
-
         return Response({"message": "Appointment cancelled"})
-
     except Booking.DoesNotExist:
         return Response({"error": "Booking not found"}, status=404)
 
@@ -394,17 +362,11 @@ def cancel_appointment(request):
 def filter_bookings(request):
     user_id = request.user.id
     bookings = Booking.objects.filter(patient_id=user_id)
-
     doctor_name = request.query_params.get('doctor_name')
     status = request.query_params.get('status')
-
-    # Filter by doctor name
     if doctor_name:
         bookings = bookings.filter(doctor__name__icontains=doctor_name)
-
-    # Filter by status
     if status:
         bookings = bookings.filter(status__iexact=status)
-
     serializer = BookingSerializer(bookings, many=True)
     return Response(serializer.data)
