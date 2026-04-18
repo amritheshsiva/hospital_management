@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     {path:'register',element:<Register/>},
     {path:'doclist',element:<DocList/>},
     {path:'appointments',element:<Appmnt/>},
-    {path:'book',element:<DocBook/>},
+    {path:'book/:id',element:<DocBook/>},
     {path:'docprofile',element:<DocProfile/>},
     {path:'userprofile',element:<UserProfile/>},
     {path:'userprofedit',element:<UserProfileEdit/>}
