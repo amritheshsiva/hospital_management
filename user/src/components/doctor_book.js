@@ -27,7 +27,7 @@ useEffect(() => {
 
   const handleBooking = () => {
     const token = localStorage.getItem("token");
-    const user_id = localStorage.getItem("user_id");
+    // const user_id = localStorage.getItem("user_id");
 
     if (!date || !time) {
       alert("Please select date and time");
